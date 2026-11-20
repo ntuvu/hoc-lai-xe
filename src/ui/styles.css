@@ -1,0 +1,104 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1b1f24;
+  --muted: #5f6b7a;
+  --border: #d9dee5;
+  --accent: #1f6feb;
+  --correct-bg: #e3f6e8;
+  --correct-border: #2e9e4f;
+  --wrong-bg: #fde8e8;
+  --wrong-border: #d23c3c;
+  --radius: 12px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1216;
+    --surface: #181c22;
+    --text: #e6e9ee;
+    --muted: #97a1ad;
+    --border: #2c333c;
+    --accent: #5b9dff;
+    --correct-bg: #12321d;
+    --correct-border: #3fbf66;
+    --wrong-bg: #3a1616;
+    --wrong-border: #ef5b5b;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); }
+a { color: var(--accent); text-decoration: none; }
+button { font: inherit; color: inherit; }
+
+.page { max-width: 760px; margin: 0 auto; padding: 16px 16px 48px; }
+.page-header h1 { margin: 8px 0 4px; font-size: 1.5rem; }
+.muted { color: var(--muted); }
+.error { color: var(--wrong-border); }
+
+.chapter-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+@media (min-width: 640px) { .chapter-list { grid-template-columns: 1fr 1fr; } }
+.chapter-card {
+  display: grid; gap: 4px; height: 100%; padding: 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);
+}
+.chapter-card:hover { border-color: var(--accent); }
+.chapter-code { font-weight: 700; color: var(--accent); }
+.chapter-count { color: var(--muted); font-size: 0.9rem; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 12px; }
+
+.question { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.question-number { margin: 0 0 8px; font-size: 1rem; color: var(--muted); }
+.question-text { margin: 0 0 12px; font-size: 1.1rem; font-weight: 600; }
+.question-image { display: block; width: 100%; padding: 0; margin: 0 0 12px; border: 0; background: none; cursor: zoom-in; }
+.question-image img { display: block; max-width: 100%; max-height: 320px; margin: 0 auto; border-radius: 8px; }
+
+.options { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.option {
+  width: 100%; display: flex; gap: 12px; align-items: flex-start; text-align: left;
+  padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); cursor: pointer;
+}
+.option:not(:disabled):hover { border-color: var(--accent); }
+.option:disabled { cursor: default; }
+.option-index {
+  flex: none; width: 28px; height: 28px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--bg); font-weight: 700;
+}
+.option.is-correct { background: var(--correct-bg); border-color: var(--correct-border); }
+.option.is-wrong { background: var(--wrong-bg); border-color: var(--wrong-border); }
+.option.is-dim { opacity: 0.6; }
+
+.feedback { margin-top: 12px; padding: 12px; border-radius: 10px; border-left: 4px solid; }
+.feedback.is-correct { background: var(--correct-bg); border-color: var(--correct-border); }
+.feedback.is-wrong { background: var(--wrong-bg); border-color: var(--wrong-border); }
+.feedback p { margin: 8px 0 0; }
+
+.pager { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.pager button, .jump button {
+  padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer;
+}
+.pager button:disabled { opacity: 0.4; cursor: default; }
+.jump { display: flex; gap: 6px; }
+.jump input {
+  width: 84px; padding: 10px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text); font: inherit;
+}
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 10; display: grid; place-items: center;
+  background: rgba(0, 0, 0, 0.88); padding: 16px; overflow: auto; touch-action: pinch-zoom;
+}
+.lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; border-radius: 8px; cursor: zoom-in; }
+.lightbox.is-magnified { place-items: start; }
+.lightbox.is-magnified img { max-width: none; max-height: none; width: 200vw; cursor: zoom-out; }
+@media (min-width: 640px) { .lightbox.is-magnified img { width: auto; height: 200vh; } }
+.lightbox-close {
+  position: fixed; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: rgba(255, 255, 255, 0.15); color: #fff; font-size: 1.25rem; cursor: pointer;
+}
