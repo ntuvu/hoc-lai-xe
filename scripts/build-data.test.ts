@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { buildQuestions, loadRawQuestions, IMAGE_SOURCE_DIR, writeOutputs } from './build-data'
+import { attachGuides, buildQuestions, loadGuides, loadRawQuestions, IMAGE_SOURCE_DIR, writeOutputs } from './build-data'
 
 const questions = buildQuestions(loadRawQuestions())
 
@@ -38,6 +38,28 @@ describe('questions.json build output', () => {
     expect(q1.options.map((o) => o.key)).toEqual(['a', 'b', 'c'])
     expect(q1.correctAnswer).toBe('b')
     expect(q1.options[1]!.text).toBe('Phần đường xe chạy.')
+  })
+})
+
+describe('giải thích dễ hiểu (data/giai-thich)', () => {
+  const withGuides = attachGuides(questions, loadGuides())
+
+  it('có guide cho đủ 600 câu', () => {
+    const missing = withGuides.filter((q) => !q.guide).map((q) => q.id)
+    expect(missing).toEqual([])
+  })
+
+  it('mọi "Chọn ý N" khớp đáp án đúng', () => {
+    const wrong: string[] = []
+    for (const q of withGuides) {
+      const correct = q.options.findIndex((o) => o.key === q.correctAnswer) + 1
+      const text = `${q.guide!.easy} ${q.guide!.remember}`
+      for (const m of text.matchAll(/[Cc]họn ý (\d)/g)) {
+        if (Number(m[1]) !== correct) wrong.push(`câu ${q.id}: ghi ý ${m[1]}, đúng là ý ${correct}`)
+      }
+      if (!/[Cc]họn ý \d/.test(q.guide!.remember)) wrong.push(`câu ${q.id}: remember thiếu "Chọn ý N"`)
+    }
+    expect(wrong).toEqual([])
   })
 })
 

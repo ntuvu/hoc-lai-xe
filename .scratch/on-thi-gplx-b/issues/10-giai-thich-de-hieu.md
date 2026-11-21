@@ -4,8 +4,8 @@
 
 **Blocked by:** 01
 
-**Status:** in-progress
+**Status:** done
 
 - [x] Dữ liệu nguồn `data/giai-thich/*.json` (key = số câu → `easy`, `picture`, `remember`); pipeline gộp vào `questions.json` và báo lỗi nếu thiếu trường / trùng / sai số câu.
 - [x] UI hiện khối "Hiểu nhanh" sau khi trả lời và khi xem lại bài thi.
-- [ ] Đủ 600/600 câu; test pipeline kiểm tra đủ 600 câu đều có giải thích, và nội dung khớp đáp án đúng (không nhắc sai số thứ tự đáp án).
+- [x] Đủ 600/600 câu; test pipeline kiểm tra đủ 600 câu đều có giải thích, và nội dung khớp đáp án đúng (không nhắc sai số thứ tự đáp án).
