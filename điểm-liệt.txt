@@ -4,7 +4,7 @@
 
 4 loại giấy phép phải mang: giấy phép lái xe, giấy đăng kiểm, giấy đăng ký xe, bảo hiểm bắt buộc
 
-- 9 chỗ ko có niên hạn, > 9 chỗ 20 năm, xe tải 25 năm
+- 9 chỗ ko có niên hạn, > 9 chỗ 20 năm, xe tải 25 năm [sửa] đề ghi "trên 8 chỗ (không kể chỗ người lái)" -> 20 năm (#278)
 
 - được cấp phép mới được đua xe, đua trái phép bị xử phạt tùy theo mức độ
 
@@ -40,7 +40,7 @@
 
 - cấm buông 2 tay khi lái xe(1 làn 2 tay)
 
-- người được chở ko được: chở vật cồng kềnh, bám kéo đẩy xe khác(chọn 3: ý 1 + 2)
+- người được chở ko được: chở vật cồng kềnh, bám kéo đẩy xe khác(chọn 4: "Ý 1 và ý 2") [sửa] ghi chú cũ ghi "chọn 3", trong đề "Ý 1 và ý 2" là đáp án 4 (#66)
 
 - người được chở: đội mũ + cài quai(chọn 1)
 

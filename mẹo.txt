@@ -1,7 +1,10 @@
 bị nghiêm cấm - chọn luôn
+[sửa] #31 có cả "Bị nghiêm cấm." và "Bị nghiêm cấm tuỳ trường hợp" -> chọn đáp án ngắn, không kèm điều kiện
 giảm tốc độ, bên phải chọn luôn
+[sửa] #216 (rẽ phải) hai đáp án đều có "giảm tốc độ" + "bên phải" -> chọn đáp án có tín hiệu từ xa, đi sát bên phải (ý 2)
 
 quan sát - ý dài chọn luôn trừ 1 câu, phải có ít nhất 2 quan sát thì mới chọn dài, nếu chỉ có 1 quan sát thì không được, ngoại trừ 1 câu đường nhánh đường chính phải chú ý
+[sửa] thêm ngoại lệ: #216 rẽ phải -> ý 2, #217 rẽ trái -> ý 1, #247 đông dân cư -> "Cả hai ý trên", #259 gương chiếu hậu (xe máy) -> quan sát phía SAU (ý 3)
 
 đáp án cả 3 ý - chọn luôn ngoại trừ:
 + vạch kẻ đường là gì - chọn LÀ VẠCH
@@ -14,9 +17,13 @@ quan sát - ý dài chọn luôn trừ 1 câu, phải có ít nhất 2 quan sát
 + GPLX bị trừ điểm - chọn ĐƯỢC PHỤC HỒI
 + gặp biển số 1(biển cấm đầu kéo rơ mooc xe tải được đi vào không) - chọn ĐƯỢC ĐI VÀO
 + làn dường dành riêng ... có được phép chuyển làn - chọn ĐƯỢC PHÉP CHUYỂN
+[sửa] khi có đáp án "Cả ba/hai ý" thì ưu tiên mẹo "cả 3 ý": #261 -> cả ba ý, #270 -> cả hai ý
+[sửa] thêm ngoại lệ #484 (vạch) -> "sắp đến chỗ có vạch đi bộ qua đường"
+[sửa] câu mơ hồ (nhiều đáp án cùng có "không được"): #81, #110 -> giảm tốc + tín hiệu rẽ phải + đi sát bên phải; #273 -> cả hai ý
 
 ý - chọn luôn trừ 1 câu
 + nhiên liệu gảm ô nhiễm - chọn XĂNG SINH HỌC
+[sửa] mẹo áp cho dạng "Ý x và ý y", KHÔNG phải "Cả hai ý trên"; thêm ngoại lệ #229 (đèn báo cửa xe) -> "Cửa xe đóng chưa chặt" (ý 1)
 
 PHƯƠNG TIỆN GIAO THÔNG ĐƯỜNG BỘ: cơ giới, thô sơ, xe máy chuyên dùng
 hỏi cơ giới, bỏ 2 cái còn lại
@@ -25,6 +32,7 @@ hỏi thô sơ, bỏ 2 cái còn lại
 Dừng xe -> đứng yên tạm thời
 Đỗ xe -> ko giới hạn thời gian
 Dừng đỗ xe -> chọn ý 2
+[sửa] chỉ đúng cho 2 câu định nghĩa #14, #15; áp cho câu dừng/đỗ khác sẽ sai (#59, #60, #61)
 
 Người điều khiển giao thông-cảnh sát giao thông
 Phần chữ: Giơ 1 tay - chọn 3, Dang 2 tay - chọn 4
@@ -46,6 +54,7 @@ BE -> B kéo rơ móc
 CE -> C kéo rơ móc
 DE -> D kéo rơ móc
 B1 -> xe 3 bánh
+[sửa] mẹo B1 không có câu nào trong bộ 600 câu, không đưa vào app
 
 Tốc độ trong đông dân cư
 xe máy, gắn máy -> 40
@@ -79,6 +88,7 @@ dừng cách lề -> 0.25m
 chưa hết điểm, trừ hết điểm -> 12 điểm
 lái liên tục -> 4h
 lái 1 ngày, tư thế lái -> 10h
+[sửa] chỉ giữ "làm việc 1 ngày -> 10h"; "tư thế lái" (#211) không liên quan 10h, không đưa vào app
 điều chỉnh ghế -> số 0
 niên hạn chở người -> 20 năm
 niêm hạn xe tải -> 25 năm
@@ -87,10 +97,13 @@ Hàng nguy hiểm, hàng quá khổ -> trường hợp cần thiết
 Lại chỗ đường sắt -> dừng lại bên phải
 
 Lên dốc xuống dốc đường ổ gà, ngập nước - đường khó đi -> về số thấp(số 1,2,L)
+[sửa] #212, #226 hai đáp án đều có "số thấp": #212 chọn "về số thấp TỪ CHÂN DỐC", #226 chọn "KHÔNG đánh lái ngoặt, không phanh gấp"
 
 Ưu tiên chọn -> Giảm tốc độ
+[sửa] mẹo yếu (sai 10/32 câu), chỉ dùng khi không còn mẹo nào khác. Ngoại lệ: #56, #220, #235, #247, #248, #257, #280, #285, #419, #578
 
 nhả phanh đỗ -> bóp khóa hãm
+[sửa] #208 cả 3 đáp án đều có "bóp khóa hãm" -> chọn đáp án MỞ ĐẦU bằng "bóp khóa hãm, đẩy cần phanh về phía trước"
 khởi hành -> đạp ly hợp(chân côn)
 kính chắn gió -> kính an toàn 
 động cơ diesel -> tạp chất
@@ -148,6 +161,7 @@ vạch trắng -> phân làn
 câu hỏi vi phạm mà mũi tên chỉ loẳng ngoằng -> chọn ý ko có xe con
 xe kéo nhau -> chọn không đúng, vi phạm
 lấy số bánh xe của xe cuối cùng - 1 = đáp án
+[sửa] không xác định được câu nào dùng mẹo này, không đưa vào app
 
 đèn đỏ phải dừng, đèn xanh được đi
 
@@ -159,4 +173,5 @@ b4 tay phải không vướng - xe nào đường phía tay phải có xe đư�
 b5 theo hướng đi - phải > thẳng > trái
 
 mẹo: công an đi thẳng chọn 1, rẽ chọn 4-chỉ khi có 4 xe ở 4 hướng
+[sửa] ngoại lệ #489: xe tải đi trên đường ưu tiên nên đi ngay sau xe công an -> ý 4 (công an, tải, khách, con)
 thấy xe quân sự hoặc chữa cháy chọn ý 2

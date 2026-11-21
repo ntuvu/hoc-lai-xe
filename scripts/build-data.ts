@@ -1,7 +1,8 @@
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { isChapterCode, type ChapterCode, type OptionKey, type Question } from '../src/engine/types'
+import { isChapterCode, type ChapterCode, type OptionKey, type Question, type Tip } from '../src/engine/types'
+import { buildTips, loadTipsSource } from './build-tips'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 export const RAW_QUESTIONS_PATH = join(ROOT, 'data', '600-cau-hoi-GPLX-hang-B.json')
@@ -56,20 +57,22 @@ export function buildQuestions(raw: RawQuestion[]): Question[] {
   })
 }
 
-/** Ghi `questions.json` và chép các hình được tham chiếu vào `outDir/images`. */
-export function writeOutputs(questions: Question[], outDir = OUTPUT_DIR) {
+/** Ghi `questions.json`, `tips.json` và chép các hình được tham chiếu vào `outDir/images`. */
+export function writeOutputs(questions: Question[], tips: Tip[], outDir = OUTPUT_DIR) {
   const imageOut = join(outDir, 'images')
   mkdirSync(imageOut, { recursive: true })
   for (const image of new Set(questions.flatMap((q) => (q.image ? [q.image] : [])))) {
     copyFileSync(join(IMAGE_SOURCE_DIR, image), join(imageOut, image))
   }
   writeFileSync(join(outDir, 'questions.json'), JSON.stringify(questions))
+  writeFileSync(join(outDir, 'tips.json'), JSON.stringify(tips))
 }
 
 function main() {
   const questions = buildQuestions(loadRawQuestions())
-  writeOutputs(questions)
-  console.log(`Đã sinh ${questions.length} câu hỏi vào ${OUTPUT_DIR}`)
+  const tips = buildTips(loadTipsSource(), questions)
+  writeOutputs(questions, tips)
+  console.log(`Đã sinh ${questions.length} câu hỏi, ${tips.length} mẹo vào ${OUTPUT_DIR}`)
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main()

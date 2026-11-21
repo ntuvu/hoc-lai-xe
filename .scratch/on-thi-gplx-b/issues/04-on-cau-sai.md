@@ -4,9 +4,9 @@
 
 **Blocked by:** 03 (Lưu tiến độ ôn + ôn 60 câu điểm liệt)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Engine: trả lời sai → câu vào danh sách, bộ đếm đúng liên tiếp = 0; trả lời đúng khi đang trong danh sách → bộ đếm +1; đạt 2 → ra khỏi danh sách.
-- [ ] Engine: bộ lọc "câu sai" để lấy danh sách câu cần ôn, và số câu còn lại.
-- [ ] Chế độ ôn câu sai trên UI, có hiện số câu còn lại; danh sách rỗng thì báo rõ.
-- [ ] Test engine: sai → vào; đúng 1 lần → còn; đúng 2 lần liên tiếp → ra; đúng–sai–đúng → còn.
+- [x] Engine: trả lời sai → câu vào danh sách, bộ đếm đúng liên tiếp = 0; trả lời đúng khi đang trong danh sách → bộ đếm +1; đạt 2 → ra khỏi danh sách.
+- [x] Engine: bộ lọc "câu sai" để lấy danh sách câu cần ôn, và số câu còn lại.
+- [x] Chế độ ôn câu sai trên UI, có hiện số câu còn lại; danh sách rỗng thì báo rõ.
+- [x] Test engine: sai → vào; đúng 1 lần → còn; đúng 2 lần liên tiếp → ra; đúng–sai–đúng → còn.

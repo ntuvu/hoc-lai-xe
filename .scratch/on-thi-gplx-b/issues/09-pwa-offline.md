@@ -4,9 +4,9 @@
 
 **Blocked by:** 01 (Khung app + ôn theo chương)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Có web app manifest (tên tiếng Việt, icon, chạy dạng standalone); cài được lên màn hình chính.
-- [ ] Service worker precache app shell, `questions.json`, `tips.json` (khi có) và toàn bộ hình.
-- [ ] Kiểm tra thủ công: build bản production, mở một lần, tắt mạng, reload → app chạy và hiện được câu có hình.
-- [ ] Khi có bản build mới, app nhận được bản mới (không bị kẹt cache cũ).
+- [x] Có web app manifest (tên tiếng Việt, icon, chạy dạng standalone); cài được lên màn hình chính.
+- [x] Service worker precache app shell, `questions.json`, `tips.json` (khi có) và toàn bộ hình.
+- [x] Kiểm tra thủ công: build bản production, mở một lần, tắt mạng, reload → app chạy và hiện được câu có hình.
+- [x] Khi có bản build mới, app nhận được bản mới (không bị kẹt cache cũ).

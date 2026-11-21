@@ -4,10 +4,10 @@
 
 **Blocked by:** 03 (Lưu tiến độ ôn + ôn 60 câu điểm liệt), 05 (Thi thử)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Engine tính thống kê theo chương: đã làm / đúng / sai / tổng.
-- [ ] Engine tính tỉ lệ thuộc điểm liệt: "đã thuộc" = câu đã làm, lần trả lời gần nhất đúng và không nằm trong danh sách câu sai.
-- [ ] Engine trả lịch sử thi thử (ngày, điểm, đạt/trượt, lý do trượt).
-- [ ] UI màn hình tiến độ và tóm tắt ở trang chủ.
-- [ ] Test engine cho cả ba loại thống kê.
+- [x] Engine tính thống kê theo chương: đã làm / đúng / sai / tổng.
+- [x] Engine tính tỉ lệ thuộc điểm liệt: "đã thuộc" = câu đã làm, lần trả lời gần nhất đúng và không nằm trong danh sách câu sai.
+- [x] Engine trả lịch sử thi thử (ngày, điểm, đạt/trượt, lý do trượt).
+- [x] UI màn hình tiến độ và tóm tắt ở trang chủ.
+- [x] Test engine cho cả ba loại thống kê.

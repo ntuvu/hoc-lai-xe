@@ -1,0 +1,2276 @@
+{
+ "_note": "Dữ liệu nguồn mẹo đã kiểm chứng. Sinh một lần bằng scripts/seed-tips.py, sau đó duyệt/chỉnh tay. Pipeline (npm run build:data) kiểm chứng lại với đáp án và fail nếu sai.",
+ "excluded": [
+  {
+   "tip": "B1 → xe 3 bánh",
+   "reason": "Không có câu nào trong bộ 600 câu dùng được mẹo này."
+  },
+  {
+   "tip": "Lái 1 ngày, tư thế lái → 10h",
+   "reason": "Phần \"tư thế lái\" khó hiểu: câu tư thế lái (#211) không liên quan 10h. Phần \"làm việc 10 giờ\" đã có trong mẹo \"Các con số chọn nhanh\"."
+  },
+  {
+   "tip": "Lấy số bánh xe của xe cuối cùng − 1 = đáp án",
+   "reason": "Không xác định được mẹo áp cho câu nào."
+  },
+  {
+   "tip": "\"Dừng đỗ xe → chọn ý 2\" (cho mọi câu dừng/đỗ)",
+   "reason": "Chỉ đúng cho 2 câu định nghĩa (#14, #15), đã gộp vào mẹo \"Dừng xe = tạm thời, đỗ xe = không giới hạn\". Áp cho câu khác sẽ sai (#59, #60, #61)."
+  }
+ ],
+ "tips": [
+  {
+   "id": "bi-nghiem-cam",
+   "title": "\"Bị nghiêm cấm\" → chọn",
+   "rule": "Đáp án nào có cụm \"bị nghiêm cấm\" thì chọn luôn (loại \"Không bị nghiêm cấm\"). Nếu có cả \"Bị nghiêm cấm.\" và \"Bị nghiêm cấm tùy trường hợp\" thì chọn đáp án ngắn, không kèm điều kiện.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 24,
+     "answer": "a"
+    },
+    {
+     "id": 197,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": [
+    {
+     "id": 31,
+     "candidates": [
+      "b",
+      "c"
+     ],
+     "note": "Có cả \"Bị nghiêm cấm.\" và \"Bị nghiêm cấm tùy trường hợp\": chọn đáp án ngắn, không kèm điều kiện."
+    }
+   ]
+  },
+  {
+   "id": "giam-toc-ben-phai",
+   "title": "\"Giảm tốc độ\" + \"bên phải\" → chọn",
+   "rule": "Đáp án có cả \"giảm tốc độ\" và \"bên phải\" thì chọn luôn (thường là câu tránh xe, nhường đường).",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 81,
+     "answer": "b"
+    },
+    {
+     "id": 87,
+     "answer": "a"
+    },
+    {
+     "id": 96,
+     "answer": "a"
+    },
+    {
+     "id": 110,
+     "answer": "a"
+    },
+    {
+     "id": 241,
+     "answer": "a"
+    },
+    {
+     "id": 580,
+     "answer": "a"
+    },
+    {
+     "id": 590,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": [
+    {
+     "id": 216,
+     "candidates": [
+      "a",
+      "b"
+     ],
+     "note": "Câu rẽ phải: hai đáp án đều có \"giảm tốc độ\" và \"bên phải\". Chọn đáp án có tín hiệu từ xa, đi sát bên phải."
+    }
+   ]
+  },
+  {
+   "id": "quan-sat-y-dai",
+   "title": "\"Quan sát\" → chọn ý dài",
+   "rule": "Khi có ít nhất 2 đáp án chứa \"quan sát\", chọn đáp án dài nhất trong số đó. Chỉ 1 đáp án có \"quan sát\" thì không dùng mẹo này.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 34,
+     "answer": "b"
+    },
+    {
+     "id": 40,
+     "answer": "a"
+    },
+    {
+     "id": 78,
+     "answer": "b"
+    },
+    {
+     "id": 84,
+     "answer": "b"
+    },
+    {
+     "id": 85,
+     "answer": "c"
+    },
+    {
+     "id": 99,
+     "answer": "a"
+    },
+    {
+     "id": 210,
+     "answer": "a"
+    },
+    {
+     "id": 215,
+     "answer": "a"
+    },
+    {
+     "id": 234,
+     "answer": "a"
+    },
+    {
+     "id": 246,
+     "answer": "a"
+    },
+    {
+     "id": 248,
+     "answer": "a"
+    },
+    {
+     "id": 249,
+     "answer": "a"
+    },
+    {
+     "id": 256,
+     "answer": "a"
+    },
+    {
+     "id": 264,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [
+    {
+     "id": 216,
+     "tipAnswer": "c",
+     "correctAnswer": "b",
+     "reason": "Rẽ phải: chọn đáp án bật tín hiệu từ xa, giảm tốc, đi sát bên phải (không phải ý dài nhất)."
+    },
+    {
+     "id": 217,
+     "tipAnswer": "b",
+     "correctAnswer": "a",
+     "reason": "Rẽ trái: chọn đáp án bật tín hiệu, giảm tốc, quan sát bên trái rồi đổi sang làn trái."
+    },
+    {
+     "id": 247,
+     "tipAnswer": "a",
+     "correctAnswer": "c",
+     "reason": "Đáp án đúng là \"Cả hai ý trên\" (mẹo \"cả hai/ba ý\" thắng)."
+    },
+    {
+     "id": 253,
+     "tipAnswer": "c",
+     "correctAnswer": "a",
+     "reason": "Đường nhánh ra đường chính: chọn \"Quan sát, giảm tốc độ, phát tín hiệu, nhường đường...\" (ngoại lệ có sẵn trong ghi chú)."
+    },
+    {
+     "id": 259,
+     "tipAnswer": "d",
+     "correctAnswer": "c",
+     "reason": "Gương chiếu hậu dùng để quan sát phía SAU (bên trái và bên phải), không phải phía trước."
+    }
+   ],
+   "ambiguous": []
+  },
+  {
+   "id": "ca-ba-y",
+   "title": "\"Cả ba ý trên\" → chọn",
+   "rule": "Đáp án \"Cả ba ý trên\" thì chọn luôn. Khi câu có đáp án \"Cả ba/hai ý\" thì mẹo này được ưu tiên hơn mẹo \"không được\". Chỉ áp cho \"cả ba Ý\", không mở rộng sang \"cả ba biển/vạch/xe/hướng\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "priority": 2,
+   "appliesTo": [
+    {
+     "id": 27,
+     "answer": "d"
+    },
+    {
+     "id": 35,
+     "answer": "d"
+    },
+    {
+     "id": 56,
+     "answer": "d"
+    },
+    {
+     "id": 58,
+     "answer": "d"
+    },
+    {
+     "id": 70,
+     "answer": "d"
+    },
+    {
+     "id": 88,
+     "answer": "d"
+    },
+    {
+     "id": 95,
+     "answer": "d"
+    },
+    {
+     "id": 102,
+     "answer": "d"
+    },
+    {
+     "id": 107,
+     "answer": "d"
+    },
+    {
+     "id": 117,
+     "answer": "d"
+    },
+    {
+     "id": 138,
+     "answer": "d"
+    },
+    {
+     "id": 139,
+     "answer": "d"
+    },
+    {
+     "id": 165,
+     "answer": "d"
+    },
+    {
+     "id": 169,
+     "answer": "d"
+    },
+    {
+     "id": 174,
+     "answer": "d"
+    },
+    {
+     "id": 175,
+     "answer": "d"
+    },
+    {
+     "id": 177,
+     "answer": "d"
+    },
+    {
+     "id": 194,
+     "answer": "d"
+    },
+    {
+     "id": 202,
+     "answer": "d"
+    },
+    {
+     "id": 205,
+     "answer": "d"
+    },
+    {
+     "id": 251,
+     "answer": "d"
+    },
+    {
+     "id": 257,
+     "answer": "d"
+    },
+    {
+     "id": 261,
+     "answer": "d"
+    },
+    {
+     "id": 262,
+     "answer": "d"
+    },
+    {
+     "id": 263,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [
+    {
+     "id": 5,
+     "tipAnswer": "d",
+     "correctAnswer": "b",
+     "reason": "Vạch kẻ đường là gì → chọn \"Là vạch chỉ sự phân chia làn đường...\"."
+    },
+    {
+     "id": 123,
+     "tipAnswer": "d",
+     "correctAnswer": "b",
+     "reason": "Người đủ 16 tuổi → chọn \"Xe gắn máy\"."
+    },
+    {
+     "id": 170,
+     "tipAnswer": "d",
+     "correctAnswer": "c",
+     "reason": "Bị nghiêm cấm trong vận tải hành khách → chọn đáp án \"Đe dọa, xúc phạm...\" (câu dài nhất)."
+    },
+    {
+     "id": 204,
+     "tipAnswer": "d",
+     "correctAnswer": "a",
+     "reason": "Thấy ngọn lửa, khói từ xe → chọn \"Bình tĩnh, đưa xe sát vào lề...\"."
+    }
+   ],
+   "ambiguous": []
+  },
+  {
+   "id": "khong-duoc",
+   "title": "\"Không được\" → chọn",
+   "rule": "Đáp án có cụm \"không được\" thì chọn luôn, trừ một số câu ngoại lệ. Khi câu có đáp án \"Cả ba/hai ý\" thì ưu tiên mẹo \"cả 3 ý\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "priority": 1,
+   "appliesTo": [
+    {
+     "id": 14,
+     "answer": "b"
+    },
+    {
+     "id": 42,
+     "answer": "a"
+    },
+    {
+     "id": 47,
+     "answer": "b"
+    },
+    {
+     "id": 63,
+     "answer": "d"
+    },
+    {
+     "id": 67,
+     "answer": "d"
+    },
+    {
+     "id": 73,
+     "answer": "c"
+    },
+    {
+     "id": 74,
+     "answer": "b"
+    },
+    {
+     "id": 86,
+     "answer": "c"
+    },
+    {
+     "id": 98,
+     "answer": "a"
+    },
+    {
+     "id": 221,
+     "answer": "a"
+    },
+    {
+     "id": 222,
+     "answer": "b"
+    },
+    {
+     "id": 336,
+     "answer": "b"
+    },
+    {
+     "id": 344,
+     "answer": "b"
+    },
+    {
+     "id": 348,
+     "answer": "b"
+    },
+    {
+     "id": 355,
+     "answer": "a"
+    },
+    {
+     "id": 356,
+     "answer": "a"
+    },
+    {
+     "id": 357,
+     "answer": "a"
+    },
+    {
+     "id": 454,
+     "answer": "c"
+    },
+    {
+     "id": 556,
+     "answer": "b"
+    },
+    {
+     "id": 558,
+     "answer": "d"
+    },
+    {
+     "id": 577,
+     "answer": "b"
+    },
+    {
+     "id": 598,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [
+    {
+     "id": 97,
+     "tipAnswer": "a",
+     "correctAnswer": "c",
+     "reason": "Xe CSGT không phát tín hiệu ưu tiên → \"Được vượt khi bảo đảm an toàn\"."
+    },
+    {
+     "id": 140,
+     "tipAnswer": "a",
+     "correctAnswer": "b",
+     "reason": "GPLX chưa bị trừ hết điểm → \"Được phục hồi đủ 12 điểm\"."
+    },
+    {
+     "id": 261,
+     "tipAnswer": "c",
+     "correctAnswer": "d",
+     "reason": "Cụm \"không được\" nằm trong một ý con; đáp án đúng là \"Cả ba ý trên\"."
+    },
+    {
+     "id": 270,
+     "tipAnswer": "b",
+     "correctAnswer": "c",
+     "reason": "Cụm \"không được\" nằm trong một ý con; đáp án đúng là \"Cả hai ý trên\"."
+    },
+    {
+     "id": 341,
+     "tipAnswer": "b",
+     "correctAnswer": "a",
+     "reason": "Biển số 1 (cấm đầu kéo rơ-moóc), xe tải → \"Được đi vào\"."
+    },
+    {
+     "id": 461,
+     "tipAnswer": "b",
+     "correctAnswer": "a",
+     "reason": "Làn đường dành riêng cho từng loại xe → \"Được phép chuyển sang làn khác\"."
+    },
+    {
+     "id": 484,
+     "tipAnswer": "a",
+     "correctAnswer": "b",
+     "reason": "Câu vạch kẻ: vạch hình thoi báo hiệu sắp đến vạch đi bộ qua đường."
+    }
+   ],
+   "ambiguous": [
+    {
+     "id": 81,
+     "candidates": [
+      "a",
+      "b",
+      "c"
+     ],
+     "note": "Nhiều đáp án cùng có \"không được\". Chọn: giảm tốc, tín hiệu rẽ phải, đi sát bên phải."
+    },
+    {
+     "id": 110,
+     "candidates": [
+      "a",
+      "b"
+     ],
+     "note": "Nhiều đáp án cùng có \"không được\". Chọn: giảm tốc, tín hiệu rẽ phải, đi sát bên phải."
+    },
+    {
+     "id": 273,
+     "candidates": [
+      "a",
+      "b"
+     ],
+     "note": "Cả hai ý đều có \"không được\" → chọn \"Cả hai ý trên\"."
+    }
+   ]
+  },
+  {
+   "id": "y-x-va-y-y",
+   "title": "\"Ý x và ý y\" → chọn",
+   "rule": "Đáp án dạng \"Ý 1 và ý 2\", \"Ý 2 và ý 3\"... thì chọn luôn. Mẹo áp cho dạng \"Ý x và ý y\", KHÔNG phải \"Cả hai ý trên\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 66,
+     "answer": "d"
+    },
+    {
+     "id": 132,
+     "answer": "d"
+    },
+    {
+     "id": 173,
+     "answer": "d"
+    },
+    {
+     "id": 220,
+     "answer": "d"
+    },
+    {
+     "id": 258,
+     "answer": "d"
+    },
+    {
+     "id": 267,
+     "answer": "d"
+    },
+    {
+     "id": 294,
+     "answer": "d"
+    },
+    {
+     "id": 467,
+     "answer": "d"
+    },
+    {
+     "id": 578,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [
+    {
+     "id": 229,
+     "tipAnswer": "d",
+     "correctAnswer": "a",
+     "reason": "Đèn báo hình chiếc xe mở cửa → \"Cửa xe đóng chưa chặt\"."
+    },
+    {
+     "id": 232,
+     "tipAnswer": "c",
+     "correctAnswer": "b",
+     "reason": "Nhiên liệu giảm ô nhiễm → \"Xăng sinh học và khí sinh học\" (ngoại lệ có sẵn trong ghi chú)."
+    }
+   ],
+   "ambiguous": []
+  },
+  {
+   "id": "uu-tien-giam-toc",
+   "title": "Ưu tiên chọn \"giảm tốc độ\"",
+   "rule": "Nếu đúng 1 đáp án có \"giảm tốc\" thì nghiêng về đáp án đó. Mẹo yếu (sai khoảng 1/3 số câu): chỉ dùng khi không còn mẹo nào khác.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "low",
+   "priority": 0,
+   "appliesTo": [
+    {
+     "id": 17,
+     "answer": "a"
+    },
+    {
+     "id": 81,
+     "answer": "b"
+    },
+    {
+     "id": 84,
+     "answer": "b"
+    },
+    {
+     "id": 87,
+     "answer": "a"
+    },
+    {
+     "id": 90,
+     "answer": "a"
+    },
+    {
+     "id": 167,
+     "answer": "b"
+    },
+    {
+     "id": 198,
+     "answer": "a"
+    },
+    {
+     "id": 217,
+     "answer": "a"
+    },
+    {
+     "id": 240,
+     "answer": "b"
+    },
+    {
+     "id": 241,
+     "answer": "a"
+    },
+    {
+     "id": 243,
+     "answer": "a"
+    },
+    {
+     "id": 245,
+     "answer": "a"
+    },
+    {
+     "id": 253,
+     "answer": "a"
+    },
+    {
+     "id": 284,
+     "answer": "a"
+    },
+    {
+     "id": 420,
+     "answer": "b"
+    },
+    {
+     "id": 454,
+     "answer": "c"
+    },
+    {
+     "id": 572,
+     "answer": "b"
+    },
+    {
+     "id": 579,
+     "answer": "c"
+    },
+    {
+     "id": 581,
+     "answer": "b"
+    },
+    {
+     "id": 582,
+     "answer": "c"
+    },
+    {
+     "id": 595,
+     "answer": "b"
+    },
+    {
+     "id": 600,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [
+    {
+     "id": 56,
+     "tipAnswer": "b",
+     "correctAnswer": "d",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    },
+    {
+     "id": 220,
+     "tipAnswer": "a",
+     "correctAnswer": "d",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    },
+    {
+     "id": 235,
+     "tipAnswer": "a",
+     "correctAnswer": "c",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    },
+    {
+     "id": 247,
+     "tipAnswer": "a",
+     "correctAnswer": "c",
+     "reason": "Đáp án đúng là \"Cả hai ý trên\"."
+    },
+    {
+     "id": 248,
+     "tipAnswer": "c",
+     "correctAnswer": "a",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    },
+    {
+     "id": 257,
+     "tipAnswer": "a",
+     "correctAnswer": "d",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    },
+    {
+     "id": 280,
+     "tipAnswer": "c",
+     "correctAnswer": "a",
+     "reason": "Câu cấu tạo xe: công dụng hệ thống truyền lực là truyền mô men."
+    },
+    {
+     "id": 285,
+     "tipAnswer": "a",
+     "correctAnswer": "c",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    },
+    {
+     "id": 419,
+     "tipAnswer": "b",
+     "correctAnswer": "a",
+     "reason": "Biển ổ gà: \"1 gồ 2 gà\" → biển 1 là ổ gà."
+    },
+    {
+     "id": 578,
+     "tipAnswer": "b",
+     "correctAnswer": "d",
+     "reason": "Đáp án đúng không phải đáp án \"giảm tốc\"."
+    }
+   ],
+   "ambiguous": []
+  },
+  {
+   "id": "ve-so-thap",
+   "title": "Đường khó đi → \"về số thấp\"",
+   "rule": "Lên dốc, xuống dốc, đường ổ gà, ngập nước, trơn (đường khó đi) → chọn đáp án \"về số thấp\" (số 1, 2, L).",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 213,
+     "answer": "b"
+    },
+    {
+     "id": 214,
+     "answer": "a"
+    },
+    {
+     "id": 224,
+     "answer": "c"
+    },
+    {
+     "id": 237,
+     "answer": "a"
+    },
+    {
+     "id": 243,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": [
+    {
+     "id": 212,
+     "candidates": [
+      "a",
+      "b"
+     ],
+     "note": "Hai đáp án đều có \"số thấp\": chọn đáp án \"về số thấp TỪ CHÂN DỐC\"."
+    },
+    {
+     "id": 226,
+     "candidates": [
+      "a",
+      "b"
+     ],
+     "note": "Hai đáp án đều có \"số thấp\": chọn đáp án \"KHÔNG đánh lái ngoặt, không phanh gấp\"."
+    }
+   ]
+  },
+  {
+   "id": "sa-hinh-vi-pham-xe-con",
+   "title": "Sa hình \"xe nào vi phạm\" (theo mũi tên) → đáp án không có xe con",
+   "rule": "Câu sa hình hỏi xe nào vi phạm theo hướng mũi tên: chọn đáp án không có xe con.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 503,
+     "answer": "a"
+    },
+    {
+     "id": 526,
+     "answer": "b"
+    },
+    {
+     "id": 560,
+     "answer": "b"
+    },
+    {
+     "id": 561,
+     "answer": "c"
+    },
+    {
+     "id": 562,
+     "answer": "b"
+    },
+    {
+     "id": 563,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": [
+    {
+     "id": 532,
+     "candidates": [
+      "a",
+      "b"
+     ],
+     "note": "Không đáp án nào có xe con; câu này dùng mẹo xe chữa cháy/quân sự → ý 2."
+    }
+   ]
+  },
+  {
+   "id": "xe-keo-nhau",
+   "title": "Sa hình xe kéo nhau → \"Không đúng / Vi phạm\"",
+   "rule": "Câu sa hình có xe kéo xe khác → chọn \"Không đúng\" hoặc \"Vi phạm\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 510,
+     "answer": "b"
+    },
+    {
+     "id": 515,
+     "answer": "b"
+    },
+    {
+     "id": 518,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "xe-quan-su-chua-chay",
+   "title": "Sa hình có xe quân sự / chữa cháy → ý 2",
+   "rule": "Câu sa hình có đáp án nhắc đến xe quân sự hoặc xe chữa cháy → chọn ý 2.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 494,
+     "answer": "b"
+    },
+    {
+     "id": 498,
+     "answer": "b"
+    },
+    {
+     "id": 501,
+     "answer": "b"
+    },
+    {
+     "id": 532,
+     "answer": "b"
+    },
+    {
+     "id": 540,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "cong-an-di-thang",
+   "title": "Sa hình công an đi thẳng → ý 1",
+   "rule": "Câu thứ tự xe có xe công an, 4 xe ở 4 hướng: xe công an đi thẳng → chọn ý 1, rẽ → chọn ý 4. Phải nhìn hình xem có đường ưu tiên không.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 488,
+     "answer": "a"
+    },
+    {
+     "id": 536,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [
+    {
+     "id": 489,
+     "tipAnswer": "a",
+     "correctAnswer": "d",
+     "reason": "Trong hình, xe tải đi trên đường ưu tiên nên được đi ngay sau xe công an (thứ tự: công an → xe tải → xe khách → xe con)."
+    }
+   ],
+   "ambiguous": []
+  },
+  {
+   "id": "toc-do-ngoai-do-thi",
+   "title": "Tốc độ ngoài khu đông dân cư: 9-1, 8-2, 7-3, 6-4",
+   "rule": "Đường đôi luôn nhanh hơn đường 2 chiều 10 km/h. Đường đôi: 90 → ý 1, 80 → ý 2, 70 → ý 3, 60 → ý 4. Đường 2 chiều: 80 → ý 1, 70 → ý 2, 60 → ý 3, 50 → ý 4.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 149,
+     "answer": "a"
+    },
+    {
+     "id": 150,
+     "answer": "b"
+    },
+    {
+     "id": 151,
+     "answer": "c"
+    },
+    {
+     "id": 152,
+     "answer": "d"
+    },
+    {
+     "id": 153,
+     "answer": "a"
+    },
+    {
+     "id": 154,
+     "answer": "b"
+    },
+    {
+     "id": 155,
+     "answer": "c"
+    },
+    {
+     "id": 156,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "khoang-cach-an-toan",
+   "title": "Khoảng cách an toàn",
+   "rule": "Câu hỏi có số 100 → chọn ý 3. Có số 60 → chọn \"Cả hai ý trên\", không có thì chọn ý 1. Còn lại: lấy tốc độ lớn nhất trừ 25, chọn đáp án bằng hoặc gần bằng.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 158,
+     "answer": "c"
+    },
+    {
+     "id": 159,
+     "answer": "c"
+    },
+    {
+     "id": 160,
+     "answer": "a"
+    },
+    {
+     "id": 161,
+     "answer": "a"
+    },
+    {
+     "id": 162,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "phuong-tien-co-gioi-tho-so",
+   "title": "Phương tiện: cơ giới / thô sơ / xe máy chuyên dùng",
+   "rule": "Phương tiện giao thông đường bộ gồm cơ giới, thô sơ, xe máy chuyên dùng. Hỏi cơ giới thì bỏ 2 loại kia; hỏi thô sơ thì bỏ 2 loại kia.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 8,
+     "answer": "b"
+    },
+    {
+     "id": 9,
+     "answer": "a"
+    },
+    {
+     "id": 10,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dung-do-xe",
+   "title": "Dừng xe = tạm thời, đỗ xe = không giới hạn",
+   "rule": "Dừng xe là đứng yên tạm thời; đỗ xe là đứng yên không giới hạn thời gian. Câu định nghĩa dừng/đỗ → chọn ý 2.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 14,
+     "answer": "b"
+    },
+    {
+     "id": 15,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "csgt",
+   "title": "Cảnh sát giao thông: giơ 1 tay → 3, dang 2 tay → 4",
+   "rule": "Người điều khiển giao thông là CSGT. Phần chữ: giơ 1 tay thẳng đứng → chọn ý 3; dang 2 tay → chọn ý 4. Sa hình có CSGT → chọn ý 3.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 13,
+     "answer": "b"
+    },
+    {
+     "id": 36,
+     "answer": "d"
+    },
+    {
+     "id": 37,
+     "answer": "c"
+    },
+    {
+     "id": 528,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "do-tuoi-gplx",
+   "title": "Độ tuổi GPLX: C1 → 1, D2 → 2, còn lại → 3",
+   "rule": "Câu hỏi độ tuổi tối thiểu: hạng C1 chọn ý 1, D2 chọn ý 2, các hạng còn lại chọn ý 3.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 118,
+     "answer": "a"
+    },
+    {
+     "id": 119,
+     "answer": "c"
+    },
+    {
+     "id": 120,
+     "answer": "c"
+    },
+    {
+     "id": 121,
+     "answer": "c"
+    },
+    {
+     "id": 122,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "hang-gplx",
+   "title": "Hạng GPLX",
+   "rule": "Đủ 16 tuổi chưa có GPLX → xe gắn máy. A1 → mô tô đến 125 cm³; A → trên 125 cm³; B → ô tô đến 8 chỗ, tải đến 3,5 tấn; C1 → tải đến 7,5 tấn; C → tải trên 7,5 tấn; D1 → đến 16 chỗ; D2 → đến 29 chỗ; D → trên 29 chỗ; BE/CE/DE → hạng B/C/D kéo rơ-moóc. Với C1, D1 đọc kỹ con số vì đáp án sai cũng chứa số tương tự.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 123,
+     "answer": "b"
+    },
+    {
+     "id": 124,
+     "answer": "b"
+    },
+    {
+     "id": 125,
+     "answer": "a"
+    },
+    {
+     "id": 126,
+     "answer": "c"
+    },
+    {
+     "id": 127,
+     "answer": "c"
+    },
+    {
+     "id": 128,
+     "answer": "b"
+    },
+    {
+     "id": 129,
+     "answer": "c"
+    },
+    {
+     "id": 130,
+     "answer": "b"
+    },
+    {
+     "id": 131,
+     "answer": "c"
+    },
+    {
+     "id": 132,
+     "answer": "d"
+    },
+    {
+     "id": 133,
+     "answer": "b"
+    },
+    {
+     "id": 134,
+     "answer": "a"
+    },
+    {
+     "id": 135,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "toc-do-trong-do-thi",
+   "title": "Tốc độ trong khu đông dân cư: 40 / 50 / 60",
+   "rule": "Xe mô tô, xe gắn máy → 40 km/h. Các loại xe khác (trừ xe 4 bánh gắn động cơ): đường 2 chiều 50 km/h, đường đôi 60 km/h.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 144,
+     "answer": "b"
+    },
+    {
+     "id": 145,
+     "answer": "a"
+    },
+    {
+     "id": 146,
+     "answer": "b"
+    },
+    {
+     "id": 147,
+     "answer": "a"
+    },
+    {
+     "id": 148,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "lan-trai-lan-phai",
+   "title": "Làn trái: nhanh, làn phải: chậm",
+   "rule": "Làn bên trái dành cho xe cơ giới, chạy nhanh; làn bên phải dành cho xe thô sơ, xe chạy chậm.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 43,
+     "answer": "b"
+    },
+    {
+     "id": 44,
+     "answer": "b"
+    },
+    {
+     "id": 79,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "vong-xuyen",
+   "title": "Vòng xuyến: có biển nhường trái, không biển nhường phải",
+   "rule": "Nơi có biển báo vòng xuyến → nhường xe bên trái. Không có vòng xuyến → nhường xe bên phải. Nhớ: \"có trái, không phải\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 92,
+     "answer": "b"
+    },
+    {
+     "id": 93,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "con-so-nhanh",
+   "title": "Các con số chọn nhanh",
+   "rule": "Dùng còi từ 5 giờ đến 22 giờ; dừng xe cách lề tối đa 0,25 m; đỗ cách xe ngược chiều 20 m; phục hồi đủ 12 điểm; lái liên tục tối đa 4 giờ; làm việc tối đa 10 giờ/ngày; điều chỉnh ghế khi tay số ở số 0.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 49,
+     "answer": "b"
+    },
+    {
+     "id": 60,
+     "answer": "a"
+    },
+    {
+     "id": 61,
+     "answer": "c"
+    },
+    {
+     "id": 140,
+     "answer": "b"
+    },
+    {
+     "id": 141,
+     "answer": "b"
+    },
+    {
+     "id": 171,
+     "answer": "a"
+    },
+    {
+     "id": 172,
+     "answer": "c"
+    },
+    {
+     "id": 238,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "nien-han",
+   "title": "Niên hạn: chở người 20 năm, tải 25 năm",
+   "rule": "Xe chở người trên 8 chỗ (không kể ghế lái) → 20 năm. Xe tải → 25 năm. Xe đến 8 chỗ không có niên hạn.",
+   "source": "mẹo.txt, điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 20,
+     "answer": "c"
+    },
+    {
+     "id": 277,
+     "answer": "c"
+    },
+    {
+     "id": 278,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "truong-hop-can-thiet",
+   "title": "Hàng nguy hiểm, quá khổ → \"trường hợp cần thiết\"",
+   "rule": "Câu về chở hàng nguy hiểm, hàng siêu trường siêu trọng → chọn đáp án có \"trường hợp cần thiết\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 176,
+     "answer": "a"
+    },
+    {
+     "id": 179,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "duong-sat-ben-phai",
+   "title": "Xe hỏng trên đường sắt → bên phải",
+   "rule": "Câu về xe gặp sự cố/dừng ở chỗ giao với đường sắt → chọn đáp án có \"bên phải\".",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 99,
+     "answer": "a"
+    },
+    {
+     "id": 100,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "cau-tao-xe",
+   "title": "Cấu tạo xe: từ khóa",
+   "rule": "Nhả phanh tay → bóp khóa hãm (đáp án MỞ ĐẦU bằng bóp khóa hãm); khởi hành → đạp ly hợp hết hành trình; kính chắn gió → kính an toàn; diesel → tạp chất; dây an toàn → giữ chặt; động cơ 4 kỳ → 4 hành trình; bôi trơn → dầu bôi trơn; động cơ → nhiệt năng thành cơ năng; truyền lực → truyền mô men; ly hợp → truyền hoặc ngắt; hộp số → chuyển động lùi; hệ thống lái → thay đổi hướng; phanh → giảm tốc độ; ắc quy → tích trữ điện; máy phát → phát điện.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 208,
+     "answer": "b"
+    },
+    {
+     "id": 209,
+     "answer": "b"
+    },
+    {
+     "id": 268,
+     "answer": "a"
+    },
+    {
+     "id": 272,
+     "answer": "a"
+    },
+    {
+     "id": 274,
+     "answer": "a"
+    },
+    {
+     "id": 275,
+     "answer": "b"
+    },
+    {
+     "id": 276,
+     "answer": "a"
+    },
+    {
+     "id": 279,
+     "answer": "a"
+    },
+    {
+     "id": 280,
+     "answer": "a"
+    },
+    {
+     "id": 281,
+     "answer": "b"
+    },
+    {
+     "id": 282,
+     "answer": "c"
+    },
+    {
+     "id": 283,
+     "answer": "c"
+    },
+    {
+     "id": 284,
+     "answer": "a"
+    },
+    {
+     "id": 291,
+     "answer": "d"
+    },
+    {
+     "id": 292,
+     "answer": "a"
+    },
+    {
+     "id": 293,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "bien-chieu-dai-khoang-cach",
+   "title": "Biển phụ: chiều dài 2 mũi tên, khoảng cách không",
+   "rule": "Biển phụ chỉ chiều dài đoạn đường nguy hiểm có 2 mũi tên (S.501); biển chỉ khoảng cách đến đối tượng không có 2 mũi tên (S.502).",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 347,
+     "answer": "b"
+    },
+    {
+     "id": 352,
+     "answer": "a"
+    },
+    {
+     "id": 353,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "bien-doc",
+   "title": "Biển dốc: lên 9 xuống 10",
+   "rule": "Dốc xuống nguy hiểm là biển 1, dốc lên nguy hiểm là biển 2 (nhớ \"lên 9 xuống 10\").",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 415,
+     "answer": "a"
+    },
+    {
+     "id": 416,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "go-ga",
+   "title": "Biển ổ gà / gồ giảm tốc: \"1 gồ 2 gà\"",
+   "rule": "Nhớ \"1 gồ 2 gà\": phân biệt biển gồ giảm tốc và biển ổ gà theo câu hỏi.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 419,
+     "answer": "a"
+    },
+    {
+     "id": 420,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "co-tu-va",
+   "title": "Biển tốc độ theo làn: có \"và\" → ý 2, không \"và\" → ý 3",
+   "rule": "Câu hỏi có từ \"và\" → chọn ý 2; không có từ \"và\" → chọn ý 3.",
+   "source": "mẹo.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 426,
+     "answer": "b"
+    },
+    {
+     "id": 427,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "bien-tam-giac-giam-toc",
+   "title": "Biển tam giác → nguy hiểm, giảm tốc",
+   "rule": "Biển tam giác là biển nguy hiểm → giảm tốc độ. Biển vuông (chỉ dẫn) không liên quan tốc độ; biển tròn hết hạn chế tốc độ tối đa → được chạy nhanh hơn.",
+   "source": "mẹo.txt, điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 163,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-xe-dap-dinh",
+   "title": "Không cấm xe đạp trên quốc lộ; cấm rải đinh",
+   "rule": "Đi xe đạp trên quốc lộ không bị cấm. Rải đinh, vật sắc nhọn thì bị cấm. Mẹo: ý 1 sai thì ý 3 cũng sai.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 19,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-giay-to",
+   "title": "4 loại giấy tờ phải mang",
+   "rule": "Giấy phép lái xe, giấy chứng nhận kiểm định, giấy đăng ký xe, bảo hiểm bắt buộc.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 138,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-dua-xe",
+   "title": "Đua xe: phải được cấp phép",
+   "rule": "Chỉ được đua xe khi được cấp phép; đua trái phép bị xử lý tùy theo mức độ.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 21,
+     "answer": "c"
+    },
+    {
+     "id": 22,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-ma-tuy",
+   "title": "Có ma túy → phạt tiền + tước GPLX",
+   "rule": "Lái xe mà trong cơ thể có ma túy → phạt tiền và tước GPLX.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 23,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-co-con",
+   "title": "Có cồn → cấm lái mọi loại xe",
+   "rule": "Có nồng độ cồn → bị nghiêm cấm điều khiển mọi loại xe; bị phạt tiền và tước GPLX (cả 2 ý trên). Mẹo: ý 1 đúng, ý 2 sai thì ý 3 cũng sai.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 24,
+     "answer": "a"
+    },
+    {
+     "id": 25,
+     "answer": "c"
+    },
+    {
+     "id": 26,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-giao-xe",
+   "title": "Cấm giao xe cho người không đủ điều kiện → chọn 4",
+   "rule": "Cấm giao xe cho người chưa đủ tuổi, không có GPLX, GPLX bị trừ hết 12 điểm → chọn 4 (cả 3 ý trên).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 27,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-lang-lach",
+   "title": "Lạng lách, đánh võng, xúc phạm → cấm",
+   "rule": "Lạng lách, đánh võng, rú ga; xúc phạm, đe dọa, cản trở người khác → đều bị cấm (chọn 3: cả 2 ý trên).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 28,
+     "answer": "c"
+    },
+    {
+     "id": 32,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-mat-trat-tu",
+   "title": "Mất trật tự, cản trở → cấm",
+   "rule": "Các từ khóa \"mất trật tự\", \"cản trở\"... là bị cấm.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 30,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-quan-sat-giam-toc",
+   "title": "Quan sát → giảm tốc → dừng lại",
+   "rule": "Đáp án mở đầu bằng \"quan sát\", rồi giảm tốc độ, dừng lại bảo đảm an toàn cho người đi bộ... là đáp án đúng (ý dài).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 34,
+     "answer": "b"
+    },
+    {
+     "id": 90,
+     "answer": "a"
+    },
+    {
+     "id": 167,
+     "answer": "b"
+    },
+    {
+     "id": 253,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-truong-hop-giam-toc",
+   "title": "Trường hợp phải giảm tốc → chọn 4",
+   "rule": "Đường hẹp, cầu cống, trời mưa gió sương mù → giảm tốc (chọn 4: cả 3 ý trên). Gặp vạch đi bộ, đường giao nhau, khu vực trường học → giảm tốc (cả 3 ý).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 35,
+     "answer": "d"
+    },
+    {
+     "id": 165,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-khong-vuot",
+   "title": "Đường cong, cầu hẹp: không được vượt",
+   "rule": "Đường cong, cầu hẹp một làn: không được phép vượt (\"1 làn 2 tay\").",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 47,
+     "answer": "b"
+    },
+    {
+     "id": 53,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-xin-vuot",
+   "title": "Muốn vượt: báo bằng đèn hoặc còi",
+   "rule": "Muốn vượt xe phải báo hiệu bằng đèn hoặc còi.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 48,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-dien-thoai",
+   "title": "Cấm dùng tay cầm điện thoại",
+   "rule": "Đang lái xe thì cấm dùng tay cầm và sử dụng điện thoại.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 52,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-quay-dau",
+   "title": "Không quay đầu ở phần đường người đi bộ",
+   "rule": "Không được quay đầu xe ở phần đường dành cho người đi bộ qua đường.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 55,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-khong-lui",
+   "title": "Không được lùi: 1 chiều, giao nhau, khuất tầm nhìn → chọn 4",
+   "rule": "Không lùi xe ở đường một chiều, đường bộ giao nhau, nơi tầm nhìn bị che khuất (chọn 4: cả 3 ý trên).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 58,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-day-keo",
+   "title": "Không được đẩy, kéo xe khác",
+   "rule": "Mô tô, gắn máy không được kéo, đẩy xe khác.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 63,
+     "answer": "d"
+    },
+    {
+     "id": 67,
+     "answer": "d"
+    },
+    {
+     "id": 74,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-buong-tay",
+   "title": "Cấm buông 2 tay",
+   "rule": "Cấm buông cả hai tay khi lái xe (\"1 làn 2 tay\").",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 64,
+     "answer": "a"
+    },
+    {
+     "id": 65,
+     "answer": "a"
+    },
+    {
+     "id": 70,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-nguoi-duoc-cho",
+   "title": "Người được chở: không mang vác cồng kềnh, không bám kéo → chọn 4",
+   "rule": "Người ngồi sau không được mang vác vật cồng kềnh, không bám, kéo, đẩy xe khác → chọn 4 (\"Ý 1 và ý 2\").",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 66,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-mu-bao-hiem",
+   "title": "Người được chở: đội mũ, cài quai → chọn 1",
+   "rule": "Người được chở phải đội mũ bảo hiểm và cài quai đúng quy cách (chọn 1).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 68,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-hang-ngang-o",
+   "title": "Không đi hàng ngang, không dùng ô",
+   "rule": "Không được đi xe dàn hàng ngang, không được sử dụng ô.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 71,
+     "answer": "c"
+    },
+    {
+     "id": 72,
+     "answer": "b"
+    },
+    {
+     "id": 73,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-lui-xe",
+   "title": "Lùi xe: quan sát sau + 2 bên; khuất tầm nhìn không lùi",
+   "rule": "Lùi xe phải quan sát hai bên và phía sau (trái, phải, sau). Tầm nhìn bị che khuất thì không được lùi.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 85,
+     "answer": "c"
+    },
+    {
+     "id": 86,
+     "answer": "c"
+    },
+    {
+     "id": 246,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-tranh-xe",
+   "title": "Tránh xe: giảm tốc + đi bên phải",
+   "rule": "Tránh xe ngược chiều: giảm tốc độ và cho xe đi về bên phải.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 87,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-cho-tranh",
+   "title": "Tránh nhau: gần chỗ tránh vào trước, xuống dốc nhường lên dốc → chọn 4",
+   "rule": "Xe nào gần chỗ tránh thì vào chỗ tránh; xe xuống dốc nhường xe lên dốc (chọn 4: cả 3 ý).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 88,
+     "answer": "d"
+    },
+    {
+     "id": 89,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-duong-cong",
+   "title": "Đường cong, đường vòng: quan sát + giảm tốc",
+   "rule": "Qua đường cong, đường vòng: quan sát, giảm tốc độ.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 90,
+     "answer": "a"
+    },
+    {
+     "id": 215,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-duong-khong-uu-tien",
+   "title": "Đường không ưu tiên: nhường đường ưu tiên/đường chính",
+   "rule": "Đi trên đường không ưu tiên → nhường xe đi trên đường ưu tiên hoặc đường chính.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 91,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-tin-hieu-uu-tien",
+   "title": "Tín hiệu ưu tiên: không có → được vượt, có → không được vượt",
+   "rule": "Xe ưu tiên không phát tín hiệu → được vượt; đang phát tín hiệu ưu tiên → không được vượt.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 97,
+     "answer": "c"
+    },
+    {
+     "id": 98,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-duong-sat-dung",
+   "title": "Đường sắt phải dừng: hiệu lệnh, đèn đỏ, chắn → chọn 4",
+   "rule": "Gặp đường sắt phải dừng khi có hiệu lệnh, đèn đỏ, chắn đường bộ (chọn 4: cả 3 ý).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 102,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-nhap-cao-toc",
+   "title": "Nhập làn cao tốc → chọn 4",
+   "rule": "Vào cao tốc: có tín hiệu xin vào, quan sát xe, chạy trên làn tăng tốc (chọn 4: cả 3 ý).",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 117,
+     "answer": "d"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-xe-buyt-di-bo",
+   "title": "Gặp xe buýt, người đi bộ: quan sát, giảm tốc",
+   "rule": "Gặp xe buýt đang dừng đón khách → quan sát, giảm tốc. Gặp người đi bộ → giảm tốc.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 167,
+     "answer": "b"
+    },
+    {
+     "id": 198,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-xuong-doc-tay-ga",
+   "title": "Xuống dốc (xe tay ga): giữ tay ga, phanh trước + sau",
+   "rule": "Xuống dốc bằng xe tay ga: giữ tay ga ở vị trí đóng, dùng cả phanh trước và phanh sau.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 206,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-duong-tron",
+   "title": "Đường trơn: không đánh lái ngoặt, không phanh gấp",
+   "rule": "Đường trơn: đi chậm, không đánh lái ngoặt, không phanh gấp.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 226,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-mo-cua",
+   "title": "Mở cửa xe: quan sát + mở hé",
+   "rule": "Mở cửa xe: quan sát rồi mở hé cửa trước.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 234,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-troi-mua",
+   "title": "Trời mưa: bật đèn + giảm tốc",
+   "rule": "Trời mưa: bật đèn, giảm tốc độ.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 245,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-xuong-doc-so-thap",
+   "title": "Xuống dốc: về số thấp",
+   "rule": "Xuống dốc dài: về số thấp.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 252,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-nhanh-ra-chinh",
+   "title": "Từ đường nhánh ra đường chính: quan sát + giảm tốc",
+   "rule": "Từ đường nhánh ra đường chính: quan sát, giảm tốc, nhường xe trên đường chính.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 253,
+     "answer": "a"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-dung-dien-thoai",
+   "title": "Muốn dùng điện thoại: giảm tốc, dừng xe",
+   "rule": "Muốn nghe/gọi điện thoại: giảm tốc độ và dừng xe ở nơi cho phép.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 254,
+     "answer": "b"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-chi-phanh-truoc",
+   "title": "Không nên chỉ dùng phanh trước",
+   "rule": "Không nên chỉ dùng phanh trước.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 255,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "dl-tay-ga",
+   "title": "Xe 2 bánh: tăng ga từ từ, giảm ga nhanh",
+   "rule": "Xe 2 bánh: tăng ga từ từ, giảm ga thật nhanh.",
+   "source": "điểm-liệt.txt",
+   "scope": "question",
+   "confidence": "normal",
+   "appliesTo": [
+    {
+     "id": 260,
+     "answer": "c"
+    }
+   ],
+   "exceptions": [],
+   "ambiguous": []
+  },
+  {
+   "id": "ch5-hinh-dang-bien",
+   "title": "Biển báo: nhận theo hình dạng, màu",
+   "rule": "Tam giác → nguy hiểm, giảm tốc. Tròn viền đỏ → cấm, không được đi vào. Tròn nền xanh → hiệu lệnh, bắt buộc đi theo. Vuông/chữ nhật nền xanh → chỉ dẫn. Biển phụ đặt dưới biển chính → giải thích cho biển chính.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "V",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch5-uu-tien",
+   "title": "Biển ưu tiên / không ưu tiên",
+   "rule": "Hình thoi, tam giác xuôi → đường ưu tiên. Tam giác ngược → không ưu tiên, phải nhường đường.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "V",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch5-cam-mo-to-o-to",
+   "title": "Biển cấm mô tô / ô tô / gắn máy",
+   "rule": "Cấm mô tô và cấm ô tô không cấm lẫn nhau. Cấm mô tô không cấm xe gắn máy. Cấm gắn máy và cấm ô tô không cấm lẫn nhau. Cấm mô tô thì cấm luôn xe 3 bánh; cấm ô tô thì cấm luôn xe 3 bánh.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "V",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch5-cam-nho-cam-lon",
+   "title": "Cấm nhỏ thì cấm luôn lớn",
+   "rule": "Chỉ áp cho ô tô, thứ tự: xe con < xe tải < xe kéo < rơ-moóc. Biển cấm xe nhỏ đồng thời cấm xe lớn hơn; cấm xe lớn thì không cấm xe nhỏ.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "V",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch5-ve-gi-cam-nay",
+   "title": "Vẽ hướng nào cấm hướng đó",
+   "rule": "Biển vẽ hướng nào thì cấm hướng đó; vẽ xe nào thì cấm xe đó.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "V",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch5-vach",
+   "title": "Vạch kẻ đường",
+   "rule": "Vạch mũi tên chỉ hướng nào thì đi theo hướng đó. Vạch vàng → phân chia hai chiều xe chạy; vạch trắng → phân chia làn cùng chiều.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "V",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch6-den",
+   "title": "Đèn tín hiệu",
+   "rule": "Đèn đỏ phải dừng, đèn xanh được đi.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "VI",
+   "confidence": "normal"
+  },
+  {
+   "id": "ch6-5-buoc",
+   "title": "5 bước giải sa hình",
+   "rule": "B1: xe đã vào giao lộ trước được đi trước. B2: xe ưu tiên (thứ tự: hỏa – sự – công – thương: chữa cháy, quân sự, công an, cứu thương). B3: xe trên đường ưu tiên (có biển) đi trước. B4: bên phải trống (không vướng xe) đi trước. B5: theo hướng đi: rẽ phải > đi thẳng > rẽ trái.",
+   "source": "mẹo.txt",
+   "scope": "chapter",
+   "chapter": "VI",
+   "confidence": "normal"
+  }
+ ]
+}

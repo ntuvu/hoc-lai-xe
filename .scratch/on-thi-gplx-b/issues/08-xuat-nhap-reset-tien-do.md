@@ -4,10 +4,10 @@
 
 **Blocked by:** 05 (Thi thử)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Engine xuất tiến độ thành object JSON có trường `version` của schema.
-- [ ] Engine nhập: validate toàn bộ trước; không hợp lệ → trả lỗi, không thay đổi dữ liệu; hợp lệ → thay thế toàn bộ.
-- [ ] Engine reset tiến độ.
-- [ ] UI cài đặt: nút xuất (tải file), nhập (chọn file), reset (có xác nhận); hiện thông báo lỗi khi nhập thất bại.
-- [ ] Test engine: xuất → nhập ra lại đúng trạng thái; file sai schema / sai version / JSON hỏng → báo lỗi, trạng thái cũ giữ nguyên; reset xóa hết.
+- [x] Engine xuất tiến độ thành object JSON có trường `version` của schema.
+- [x] Engine nhập: validate toàn bộ trước; không hợp lệ → trả lỗi, không thay đổi dữ liệu; hợp lệ → thay thế toàn bộ.
+- [x] Engine reset tiến độ.
+- [x] UI cài đặt: nút xuất (tải file), nhập (chọn file), reset (có xác nhận); hiện thông báo lỗi khi nhập thất bại.
+- [x] Test engine: xuất → nhập ra lại đúng trạng thái; file sai schema / sai version / JSON hỏng → báo lỗi, trạng thái cũ giữ nguyên; reset xóa hết.

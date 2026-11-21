@@ -45,7 +45,7 @@ describe('written build output', () => {
   it('writes questions.json and copies every referenced image into the output folder', () => {
     const out = mkdtempSync(join(tmpdir(), 'gplx-build-'))
     try {
-      writeOutputs(questions, out)
+      writeOutputs(questions, [], out)
       const written = JSON.parse(readFileSync(join(out, 'questions.json'), 'utf8'))
       expect(written).toHaveLength(600)
       for (const q of questions.filter((x) => x.image)) {
