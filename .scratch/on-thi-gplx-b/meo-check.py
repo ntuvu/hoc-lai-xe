@@ -1,5 +1,5 @@
 import json, re, os, sys
-DATA = '/Users/ntuvu/Developer/ai/hoc-lai-xe/data/600-cau-hoi-GPLX-hang-B.json'
+DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../data/', '600-cau-hoi-GPLX-hang-B.json')
 Q = json.load(open(DATA))
 D = {x['id']: x for x in Q}
 low = lambda s: s.lower()
@@ -303,7 +303,7 @@ liet_cov = sorted(set(liet) & set().union(*[v for k, v in touched.items() if k.s
 out['liet_cov'] = liet_cov
 out['liet_uncov'] = sorted(set(liet) - set(liet_cov))
 out['liet_cov_any'] = sorted(set(liet) & cov)
-fs = set(os.listdir('/Users/ntuvu/Developer/ai/hoc-lai-xe/data/hinh'))
+fs = set(os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../data/', 'hinh'))
 img = [q for q in Q if q['hasImage']]
 out['img_total'] = len(img)
 out['img_missing'] = [q['id'] for q in img if not q['image'] or os.path.basename(q['image']) not in fs]
