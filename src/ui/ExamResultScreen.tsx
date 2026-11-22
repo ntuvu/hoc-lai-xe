@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { StudyEngine } from '../engine/engine'
 import { hrefFor } from './route'
+import { readSbd } from './ExamScreen'
 import { AnswerFeedback, GuideBox, QuestionCard, TipList } from './QuestionCard'
 
 export function ExamResultScreen({ engine, id }: { engine: StudyEngine; id: string }) {
@@ -17,6 +18,10 @@ export function ExamResultScreen({ engine, id }: { engine: StudyEngine; id: stri
   }
 
   const item = index === null ? null : result.items[index]!
+  const unanswered = result.items.filter((it) => it.chosen === null).length
+  const wrongCount = result.total - result.correctCount - unanswered
+  const failedPointNo = result.items.findIndex((it) => it.question.isPointDeduction && !it.correct) + 1
+  const sbd = readSbd()
 
   return (
     <main className="page">
@@ -25,21 +30,39 @@ export function ExamResultScreen({ engine, id }: { engine: StudyEngine; id: stri
         <a href={hrefFor({ name: 'exam' })}>Thi đề khác →</a>
       </nav>
 
-      <section className={`result ${result.passed ? 'is-pass' : 'is-fail'}`}>
-        <h1>{result.passed ? 'ĐẠT' : 'TRƯỢT'}</h1>
-        <p className="result-score">
-          {result.correctCount}/{result.total} câu đúng
-        </p>
-        {result.failedByPointDeduction && (
-          <p>
-            <strong>Trượt vì sai câu điểm liệt</strong>
-            {result.correctCount >= engine.examConfig.passScore && ' — dù đã đủ điểm.'}
-          </p>
-        )}
-        {!result.passed && !result.failedByPointDeduction && (
-          <p>Cần đúng ít nhất {engine.examConfig.passScore} câu.</p>
-        )}
-        <p className="muted">Các câu sai đã được đưa vào danh sách ôn câu sai.</p>
+      <section className="kq">
+        <div className="kq-title">Kết quả thi thí sinh</div>
+        <div className="kq-body">
+          <fieldset>
+            <legend>Thông tin thí sinh</legend>
+            <p>Họ tên: <b>THÍ SINH SỐ {sbd}</b></p>
+            <p>Số báo danh: <b>{sbd}</b></p>
+            <p>Hạng GPLX: <b>B</b></p>
+          </fieldset>
+          <fieldset>
+            <legend>Kết quả thi</legend>
+            <p>SỐ CÂU TRẢ LỜI ĐÚNG: <b>{result.correctCount}/{result.total}</b></p>
+            <p>SỐ CÂU TRẢ LỜI SAI: <b>{wrongCount}</b></p>
+            <p>SỐ CÂU CHƯA TRẢ LỜI: <b>{unanswered}</b></p>
+            <p className={`kq-verdict ${result.passed ? 'is-pass' : 'is-fail'}`}>
+              KẾT QUẢ: <b>{result.passed ? 'ĐẠT' : 'KHÔNG ĐẠT'}</b>
+            </p>
+            {!result.passed && (
+              <p className="kq-reason">
+                Lý do trượt:{' '}
+                {result.failedByPointDeduction
+                  ? `Trả lời sai câu mất an toàn giao thông nghiêm trọng (điểm liệt), câu số: ${failedPointNo}.`
+                  : `Không đủ ${engine.examConfig.passScore}/${result.total} câu đúng.`}
+              </p>
+            )}
+          </fieldset>
+        </div>
+        <div className="kq-actions">
+          <button type="button" onClick={() => setIndex(0)}>Xem bài thi và đáp án</button>
+          <a href={hrefFor({ name: 'exam' })}>Thi đề khác</a>
+          <a href={hrefFor({ name: 'home' })}>Kết thúc</a>
+        </div>
+        <p className="muted kq-note">Các câu sai đã được đưa vào danh sách ôn câu sai.</p>
       </section>
 
       <ol className="exam-grid" aria-label="Xem lại từng câu">
