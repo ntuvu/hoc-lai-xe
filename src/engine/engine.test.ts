@@ -142,6 +142,16 @@ describe('wrong-answer list', () => {
     e.recordAnswer(1, 'a')
     expect(e.isInWrongList(1)).toBe(true)
   })
+  it('wrongStreak đếm số lần đúng liên tiếp, null khi ra khỏi danh sách', () => {
+    const e = make()
+    expect(e.wrongStreak(1)).toBeNull()
+    e.recordAnswer(1, 'b')
+    expect(e.wrongStreak(1)).toBe(0)
+    e.recordAnswer(1, 'a')
+    expect(e.wrongStreak(1)).toBe(1)
+    e.recordAnswer(1, 'a')
+    expect(e.wrongStreak(1)).toBeNull()
+  })
   it('wrong then correct twice in a row → out of the list', () => {
     const e = make()
     e.recordAnswer(1, 'b')

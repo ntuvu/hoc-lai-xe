@@ -148,6 +148,8 @@ export interface StudyEngine {
   setPosition(filter: QuestionFilter, questionId: number): void
 
   isInWrongList(questionId: number): boolean
+  /** Số lần đúng liên tiếp của câu đang trong danh sách câu sai; null nếu câu không nằm trong danh sách. */
+  wrongStreak(questionId: number): number | null
   wrongCount(): number
 
   listTips(): Tip[]
@@ -427,6 +429,7 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
     },
 
     isInWrongList: (id) => !!state.wrong[id],
+    wrongStreak: (id) => state.wrong[id]?.streak ?? null,
     wrongCount: () => Object.keys(state.wrong).length,
 
     listTips: () => [...tips],

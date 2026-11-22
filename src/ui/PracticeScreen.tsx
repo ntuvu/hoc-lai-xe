@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import type { QuestionFilter, StudyEngine } from '../engine/engine'
+import { WRONG_STREAK_TO_CLEAR, type QuestionFilter, type StudyEngine } from '../engine/engine'
 import type { OptionKey, Question } from '../engine/types'
 import { hrefFor, navigate } from './route'
 import { AnswerFeedback, GuideBox, QuestionCard, TipList } from './QuestionCard'
@@ -25,7 +25,8 @@ export function filterTitle(engine: StudyEngine, filter: QuestionFilter): string
 
 export function PracticeScreen({ engine, filter, questionId }: Props) {
   // Danh sách câu sai thay đổi khi trả lời; giữ cố định trong một lượt ôn để không bị nhảy câu.
-  const [frozen] = useState<Question[] | null>(() => (filter.kind === 'wrong' ? engine.listQuestions(filter) : null))
+  // Muốn trả lời lại các câu còn sai (lần đúng thứ 2) thì bắt đầu lượt mới.
+  const [frozen, setFrozen] = useState<Question[] | null>(() => (filter.kind === 'wrong' ? engine.listQuestions(filter) : null))
   const [, setVersion] = useState(0)
   const rerender = () => setVersion((v) => v + 1)
   const questions = frozen ?? engine.listQuestions(filter)
@@ -79,6 +80,16 @@ export function PracticeScreen({ engine, filter, questionId }: Props) {
     setAnswers((a) => ({ ...a, [question.id]: key }))
   }
 
+  const startNewRound = () => {
+    const next = engine.listQuestions(filter)
+    setFrozen(next)
+    setAnswers({})
+    navigate({ name: 'practice', filter, questionId: next[0]?.id })
+  }
+
+  const streak = filter.kind === 'wrong' ? engine.wrongStreak(question.id) : null
+  const answeredInRound = Object.keys(answers).length
+
   const onJump = (e: FormEvent) => {
     e.preventDefault()
     const value = jumpValue.trim()
@@ -119,6 +130,11 @@ export function PracticeScreen({ engine, filter, questionId }: Props) {
             Ngẫu nhiên
           </label>
         )}
+        {filter.kind === 'wrong' && answeredInRound > 0 && (
+          <button type="button" onClick={startNewRound}>
+            {engine.wrongCount() > 0 ? `↻ Lượt ôn mới (${engine.wrongCount()} câu còn sai)` : '↻ Làm mới danh sách'}
+          </button>
+        )}
         {chapterTips.length > 0 && (
           <div className="tabs" role="tablist">
             <button type="button" role="tab" aria-selected={tab === 'questions'} onClick={() => setTab('questions')}>
@@ -150,6 +166,18 @@ export function PracticeScreen({ engine, filter, questionId }: Props) {
           )}
           {tipStatus === 'ambiguous' && (
             <p className="banner warn">⚠️ Mẹo đang học không phân biệt được đáp án ở câu này.</p>
+          )}
+          {filter.kind === 'wrong' && !revealed && streak !== null && streak > 0 && (
+            <p className="banner info">Đã đúng {streak}/{WRONG_STREAK_TO_CLEAR} lần liên tiếp. Đúng thêm lần nữa để bỏ câu này khỏi danh sách.</p>
+          )}
+          {filter.kind === 'wrong' && revealed && (
+            <p className={`banner ${streak === null ? 'good' : 'info'}`}>
+              {streak === null
+                ? '✅ Đã đúng 2 lần liên tiếp: câu này đã ra khỏi danh sách câu sai.'
+                : streak === 0
+                  ? `Vẫn sai: câu còn trong danh sách, cần đúng ${WRONG_STREAK_TO_CLEAR} lần liên tiếp mới được bỏ.`
+                  : `Đúng ${streak}/${WRONG_STREAK_TO_CLEAR}: câu còn trong danh sách. Trả lời đúng thêm 1 lần nữa ở lượt ôn mới để bỏ câu này.`}
+            </p>
           )}
           <QuestionCard question={question} showPointDeduction chosen={chosen} revealed={revealed} onChoose={choose}>
             {!revealed && tips.length > 0 && (
