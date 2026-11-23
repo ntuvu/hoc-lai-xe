@@ -3,3 +3,5 @@ dist
 public/generated
 .DS_Store
 .vercel
+
+.claude/settings.local.json
