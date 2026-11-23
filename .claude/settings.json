@@ -1,5 +1,14 @@
 {
   "enabledPlugins": {
-    "mattpocock-skills@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": true,
+    "rea@rea": true
+  },
+  "extraKnownMarketplaces": {
+    "rea": {
+      "source": {
+        "source": "github",
+        "repo": "morluto/rea"
+      }
+    }
   }
 }
