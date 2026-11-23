@@ -10,6 +10,7 @@ import {
   type ExamRecord,
   type ProgressState,
 } from './progress'
+import { createQuestionSearch, type QuestionSearch, type SearchHit } from './search'
 import { CHAPTER_CODES, type ChapterCode, type ChapterTip, type OptionKey, type Question, type QuestionTip, type Tip } from './types'
 
 export const CHAPTERS: readonly { code: ChapterCode; title: string }[] = [
@@ -159,6 +160,9 @@ export interface StudyEngine {
   wrongStreak(questionId: number): number | null
   wrongCount(): number
 
+  /** Full-text search câu hỏi (không phân biệt dấu). */
+  searchQuestions(query: string, limit?: number): SearchHit[]
+
   listTips(): Tip[]
   getTip(id: string): Tip | undefined
   getTipsForQuestion(questionId: number): TipForQuestion[]
@@ -226,6 +230,7 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
   const questionTips = tips.filter((t): t is QuestionTip => t.scope === 'question')
 
   let state = loadState()
+  let searchIndex: QuestionSearch | null = null
 
   function loadState(): ProgressState {
     const raw = storage.get(STORAGE_KEY)
@@ -446,6 +451,10 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
       return check
     },
     lastAnswer,
+    searchQuestions(query, limit) {
+      searchIndex ??= createQuestionSearch(sorted)
+      return searchIndex.search(query, limit)
+    },
 
     isShuffled: (filter) => !!state.shuffled[filterKey(filter)],
     setShuffled(filter, on) {

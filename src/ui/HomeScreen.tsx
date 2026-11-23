@@ -1,5 +1,5 @@
 import type { StudyEngine } from '../engine/engine'
-import { hrefFor } from './route'
+import { hrefFor, navigate } from './route'
 import { ProgressSummary } from './ProgressScreen'
 
 export function HomeScreen({ engine }: { engine: StudyEngine }) {
@@ -12,6 +12,18 @@ export function HomeScreen({ engine }: { engine: StudyEngine }) {
       </header>
 
       <ProgressSummary engine={engine} />
+
+      <form
+        className="search-box"
+        role="search"
+        onSubmit={(e) => {
+          e.preventDefault()
+          const q = new FormData(e.currentTarget).get('q')?.toString().trim() ?? ''
+          navigate({ name: 'search', query: q })
+        }}
+      >
+        <input name="q" type="search" placeholder="🔍 Tìm câu hỏi: tốc độ, nồng độ cồn, số câu…" aria-label="Tìm câu hỏi" />
+      </form>
 
       <ul className="mode-list">
         <li>

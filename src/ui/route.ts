@@ -11,6 +11,7 @@ export type Route =
   | { name: 'tip'; tipId: string }
   | { name: 'progress' }
   | { name: 'settings' }
+  | { name: 'search'; query: string }
 
 function parseFilter(key: string): QuestionFilter | null {
   const ch = /^chuong-([IVX]+)$/.exec(key)
@@ -48,6 +49,7 @@ export function parseRoute(hash: string): Route {
   if ((m = /^\/meo\/([^/]+)$/.exec(path))) return { name: 'tip', tipId: m[1]! }
   if (path === '/tien-do') return { name: 'progress' }
   if (path === '/cai-dat') return { name: 'settings' }
+  if ((m = /^\/tim(?:\?q=(.*))?$/.exec(path))) return { name: 'search', query: m[1] ?? '' }
   return { name: 'home' }
 }
 
@@ -69,6 +71,8 @@ export function hrefFor(route: Route): string {
       return '#/tien-do'
     case 'settings':
       return '#/cai-dat'
+    case 'search':
+      return route.query ? `#/tim?q=${encodeURIComponent(route.query)}` : '#/tim'
   }
 }
 
@@ -81,7 +85,10 @@ export function navigate(route: Route, { replace = false } = {}) {
 }
 
 export function routeKey(route: Route): string {
-  return route.name === 'practice' ? `practice:${filterSegment(route.filter)}` : hrefFor(route)
+  if (route.name === 'practice') return `practice:${filterSegment(route.filter)}`
+  // Gõ tìm kiếm chỉ đổi query trên URL, không remount màn hình (giữ focus ô nhập).
+  if (route.name === 'search') return 'search'
+  return hrefFor(route)
 }
 
 export function useRoute(): Route {

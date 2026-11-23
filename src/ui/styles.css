@@ -447,3 +447,18 @@ button.small { padding: 6px 12px; }
 .key-hint { margin: 8px 0 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 .key-hint kbd { border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font-family: inherit; font-size: 0.78rem; background: var(--surface); }
 @media (hover: none) { .key-hint { display: none; } }
+
+/* Tìm câu hỏi */
+.search-box { margin: 12px 0 16px; }
+.search-box input {
+  width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text); font: inherit; font-size: 1rem;
+}
+.search-box input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.search-hit { display: grid; gap: 6px; }
+.search-hit:hover { border-color: var(--accent); }
+.search-hit .badge { margin-left: 6px; }
+.search-hit-text { font-weight: 600; }
+.search-hit-answer { color: var(--correct-border); }
+.search-hit-where { font-size: 0.85rem; }
+.search-hit mark { background: var(--warn-bg); color: inherit; border-radius: 3px; padding: 0 1px; box-shadow: 0 0 0 1px var(--warn-border) inset; }

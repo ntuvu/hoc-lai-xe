@@ -10,6 +10,7 @@ import { ExamResultScreen } from './ExamResultScreen'
 import { TipDetailScreen, TipsScreen } from './TipsScreen'
 import { ProgressScreen } from './ProgressScreen'
 import { SettingsScreen } from './SettingsScreen'
+import { SearchScreen } from './SearchScreen'
 
 function Screen({ engine, route }: { engine: StudyEngine; route: Route }) {
   switch (route.name) {
@@ -29,6 +30,8 @@ function Screen({ engine, route }: { engine: StudyEngine; route: Route }) {
       return <ProgressScreen engine={engine} />
     case 'settings':
       return <SettingsScreen engine={engine} />
+    case 'search':
+      return <SearchScreen engine={engine} query={route.query} />
   }
 }
 
