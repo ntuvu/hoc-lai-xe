@@ -2,11 +2,17 @@ import { useState } from 'react'
 import type { StudyEngine } from '../engine/engine'
 import { hrefFor } from './route'
 import { readSbd } from './ExamScreen'
+import { useQuestionKeys } from './useQuestionKeys'
 import { AnswerFeedback, GuideBox, QuestionCard, TipList } from './QuestionCard'
 
 export function ExamResultScreen({ engine, id }: { engine: StudyEngine; id: string }) {
   const result = engine.examResult(id)
   const [index, setIndex] = useState<number | null>(null)
+  const count = result?.items.length ?? 0
+  useQuestionKeys({
+    onPrev: () => setIndex((i) => (i === null ? 0 : Math.max(0, i - 1))),
+    onNext: () => setIndex((i) => (i === null ? 0 : Math.min(count - 1, i + 1))),
+  })
 
   if (!result) {
     return (

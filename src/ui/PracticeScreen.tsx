@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { WRONG_STREAK_TO_CLEAR, type QuestionFilter, type StudyEngine } from '../engine/engine'
 import type { OptionKey, Question } from '../engine/types'
 import { hrefFor, navigate } from './route'
+import { useQuestionKeys } from './useQuestionKeys'
 import { AnswerFeedback, GuideBox, QuestionCard, TipList } from './QuestionCard'
 
 interface Props {
@@ -49,6 +50,28 @@ export function PracticeScreen({ engine, filter, questionId }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [question?.id])
 
+  const goTo = (i: number) => navigate({ name: 'practice', filter, questionId: questions[i]!.id })
+
+  const choose = (key: OptionKey) => {
+    if (!question) return
+    engine.recordAnswer(question.id, key)
+    setAnswers((a) => ({ ...a, [question.id]: key }))
+  }
+
+  useQuestionKeys({
+    onChoose: (i) => {
+      if (!question || tab !== 'questions' || answers[question.id]) return
+      const opt = question.options[i]
+      if (opt) choose(opt.key)
+    },
+    onPrev: () => {
+      if (tab === 'questions' && index > 0) goTo(index - 1)
+    },
+    onNext: () => {
+      if (tab === 'questions' && index < questions.length - 1) goTo(index + 1)
+    },
+  })
+
   const title = filterTitle(engine, filter)
   const chapterTips = filter.kind === 'chapter' ? engine.getChapterTips(filter.chapter) : []
 
@@ -73,12 +96,6 @@ export function PracticeScreen({ engine, filter, questionId }: Props) {
   const tips = engine.getTipsForQuestion(question.id)
   const tipStatus = filter.kind === 'tip' ? tips.find((t) => t.tip.id === filter.tipId)?.status : undefined
 
-  const goTo = (i: number) => navigate({ name: 'practice', filter, questionId: questions[i]!.id })
-
-  const choose = (key: OptionKey) => {
-    engine.recordAnswer(question.id, key)
-    setAnswers((a) => ({ ...a, [question.id]: key }))
-  }
 
   const startNewRound = () => {
     const next = engine.listQuestions(filter)
@@ -215,6 +232,9 @@ export function PracticeScreen({ engine, filter, questionId }: Props) {
             </button>
           </footer>
           {jumpError && <p className="error">{jumpError}</p>}
+          <p className="key-hint">
+            Phím <kbd>1</kbd>–<kbd>4</kbd> chọn đáp án · <kbd>←</kbd> <kbd>→</kbd> chuyển câu
+          </p>
         </>
       )}
     </main>
