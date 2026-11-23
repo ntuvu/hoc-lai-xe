@@ -1,6 +1,7 @@
 import { EXAM_CONFIG_B, type ExamConfig } from './exam-config'
 import {
   emptyProgress,
+  normalizeProgress,
   validateProgress,
   PROGRESS_VERSION,
   type ActiveExam,
@@ -82,9 +83,14 @@ export interface ChapterStats {
 
 export interface ExamItemResult {
   question: Question
+  /** Đáp án đã chọn khi đánh dấu đúng một ô; null nếu bỏ trống hoặc đánh dấu nhiều ô. */
   chosen: OptionKey | null
+  /** Toàn bộ các ô đã đánh dấu (rỗng = chưa trả lời). */
+  chosenKeys: OptionKey[]
   correct: boolean
 }
+
+export type ExamAnswer = OptionKey | readonly OptionKey[]
 
 export interface ExamResult {
   id: string
@@ -100,7 +106,8 @@ export interface ExamResult {
 export interface ActiveExamView {
   id: string
   questions: Question[]
-  answers: Record<number, OptionKey>
+  /** Các ô đang đánh dấu của từng câu (có thể nhiều ô — khi đó câu tính sai). */
+  answers: Record<number, OptionKey[]>
   startedAt: number
   endsAt: number
   remainingMs: number
@@ -159,10 +166,15 @@ export interface StudyEngine {
   listTipQuestions(tipId: string): TipQuestionEntry[]
 
   createExam(): Question[]
-  gradeExam(questionIds: readonly number[], answers: Readonly<Record<number, OptionKey>>, startedAt?: number): ExamResult
+  gradeExam(questionIds: readonly number[], answers: Readonly<Record<number, ExamAnswer>>, startedAt?: number): ExamResult
   startExam(): ActiveExamView
   getActiveExam(): ActiveExamView | null
+  /** Chọn đúng một đáp án cho câu (bỏ các ô khác). */
   answerExamQuestion(questionId: number, chosen: OptionKey): void
+  /** Bật/tắt một ô đáp án, giữ nguyên các ô khác — như phím 1–4 của phần mềm sát hạch. */
+  toggleExamOption(questionId: number, key: OptionKey): void
+  /** Bỏ hết các ô đã đánh dấu của câu (phím Delete). */
+  clearExamAnswer(questionId: number): void
   submitExam(): ExamResult
   /** Nếu bài thi đang làm đã hết giờ thì tự nộp và trả kết quả; ngược lại null. */
   submitExamIfExpired(): ExamResult | null
@@ -220,7 +232,7 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
     if (!raw) return emptyProgress()
     try {
       const data: unknown = JSON.parse(raw)
-      return validateProgress(data, questionIds) === null ? (data as ProgressState) : emptyProgress()
+      return validateProgress(data, questionIds) === null ? normalizeProgress(data as ProgressState) : emptyProgress()
     } catch {
       return emptyProgress()
     }
@@ -329,15 +341,17 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
 
   function gradeExam(
     ids: readonly number[],
-    answers: Readonly<Record<number, OptionKey>>,
+    answers: Readonly<Record<number, ExamAnswer>>,
     startedAt = now(),
     submittedAt = now(),
     id = `thi-${submittedAt}`,
   ): ExamResult {
     const items = ids.map((qid) => {
       const question = requireQuestion(qid)
-      const chosen = answers[qid] ?? null
-      return { question, chosen, correct: chosen === question.correctAnswer }
+      const raw = answers[qid]
+      const chosenKeys: OptionKey[] = raw === undefined ? [] : typeof raw === 'string' ? [raw] : [...raw]
+      const chosen = chosenKeys.length === 1 ? chosenKeys[0]! : null
+      return { question, chosen, chosenKeys, correct: chosen === question.correctAnswer }
     })
     const correctCount = items.filter((i) => i.correct).length
     const failedByPointDeduction = items.some((i) => i.question.isPointDeduction && !i.correct)
@@ -357,11 +371,22 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
     return {
       id: ax.id,
       questions: ax.questionIds.map(requireQuestion),
-      answers: { ...ax.answers },
+      answers: Object.fromEntries(Object.entries(ax.answers).map(([k, v]) => [k, [...v]])),
       startedAt: ax.startedAt,
       endsAt: ax.endsAt,
       remainingMs: Math.max(0, ax.endsAt - now()),
     }
+  }
+
+  function setExamTicks(questionId: number, update: (current: OptionKey[]) => OptionKey[]) {
+    const ax = state.activeExam
+    if (!ax) throw new Error('Không có bài thi đang làm')
+    if (!ax.questionIds.includes(questionId)) throw new Error(`Câu ${questionId} không thuộc đề thi`)
+    if (now() >= ax.endsAt) return
+    const next = update(ax.answers[questionId] ?? [])
+    if (next.length) ax.answers[questionId] = next
+    else delete ax.answers[questionId]
+    save()
   }
 
   function submitExam(): ExamResult {
@@ -378,7 +403,11 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
       total: result.total,
       passed: result.passed,
       failedByPointDeduction: result.failedByPointDeduction,
-      items: result.items.map((i) => ({ questionId: i.question.id, chosen: i.chosen })),
+      items: result.items.map((i) =>
+        i.chosenKeys.length > 1
+          ? { questionId: i.question.id, chosen: null, chosenKeys: i.chosenKeys }
+          : { questionId: i.question.id, chosen: i.chosen },
+      ),
     })
     state.activeExam = null
     save()
@@ -388,7 +417,11 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
   function examResult(id: string): ExamResult | undefined {
     const r = state.examHistory.find((e) => e.id === id)
     if (!r) return undefined
-    const answers = Object.fromEntries(r.items.flatMap((i) => (i.chosen ? [[i.questionId, i.chosen]] : [])))
+    const answers: Record<number, ExamAnswer> = {}
+    for (const i of r.items) {
+      if (i.chosenKeys?.length) answers[i.questionId] = i.chosenKeys
+      else if (i.chosen) answers[i.questionId] = i.chosen
+    }
     return gradeExam(r.items.map((i) => i.questionId), answers, r.startedAt, r.submittedAt, r.id)
   }
 
@@ -454,12 +487,13 @@ export function createStudyEngine(deps: StudyEngineDeps): StudyEngine {
     },
     getActiveExam: () => (state.activeExam ? viewExam(state.activeExam) : null),
     answerExamQuestion(questionId, chosen) {
-      const ax = state.activeExam
-      if (!ax) throw new Error('Không có bài thi đang làm')
-      if (!ax.questionIds.includes(questionId)) throw new Error(`Câu ${questionId} không thuộc đề thi`)
-      if (now() >= ax.endsAt) return
-      ax.answers[questionId] = chosen
-      save()
+      setExamTicks(questionId, () => [chosen])
+    },
+    toggleExamOption(questionId, key) {
+      setExamTicks(questionId, (cur) => (cur.includes(key) ? cur.filter((k) => k !== key) : [...cur, key].sort()))
+    },
+    clearExamAnswer(questionId) {
+      setExamTicks(questionId, () => [])
     },
     submitExam,
     submitExamIfExpired: () => (state.activeExam && now() >= state.activeExam.endsAt ? submitExam() : null),

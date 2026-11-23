@@ -21,6 +21,8 @@ export interface WrongEntry {
 export interface ExamItem {
   questionId: number
   chosen: OptionKey | null
+  /** Chỉ có khi thí sinh đánh dấu từ 2 ô trở lên (bài làm tính sai). */
+  chosenKeys?: OptionKey[]
 }
 
 export interface ExamRecord {
@@ -39,7 +41,11 @@ export interface ActiveExam {
   questionIds: number[]
   startedAt: number
   endsAt: number
-  answers: Record<number, OptionKey>
+  /**
+   * Các ô đáp án đang đánh dấu của từng câu. Giống phần mềm sát hạch: được đánh dấu nhiều ô,
+   * câu chỉ đúng khi đánh dấu đúng một ô là đáp án đúng. (Dữ liệu cũ lưu 1 chuỗi — vẫn đọc được.)
+   */
+  answers: Record<number, OptionKey[]>
 }
 
 export interface ProgressState {
@@ -63,6 +69,7 @@ const isObj = (v: unknown): v is Record<string, unknown> => typeof v === 'object
 const isInt = (v: unknown): v is number => Number.isInteger(v)
 const isNum = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v)
 const isKey = (v: unknown): v is OptionKey => typeof v === 'string' && OPTION_KEYS.has(v)
+const isKeyList = (v: unknown) => Array.isArray(v) && v.every(isKey) && new Set(v).size === v.length
 const isIntKeyed = (o: Record<string, unknown>) => Object.keys(o).every((k) => /^\d+$/.test(k))
 
 /** Kiểm tra toàn bộ dữ liệu tiến độ; trả về thông báo lỗi tiếng Việt hoặc null nếu hợp lệ. */
@@ -92,15 +99,26 @@ export function validateProgress(data: unknown, questionIds: ReadonlySet<number>
   for (const [i, e] of data.examHistory.entries()) {
     if (!isObj(e) || typeof e.id !== 'string' || !isNum(e.startedAt) || !isNum(e.submittedAt) || !isInt(e.correctCount) ||
       !isInt(e.total) || typeof e.passed !== 'boolean' || typeof e.failedByPointDeduction !== 'boolean' ||
-      !Array.isArray(e.items) || !e.items.every((it) => isObj(it) && qid(it.questionId) && (it.chosen === null || isKey(it.chosen))))
+      !Array.isArray(e.items) || !e.items.every((it) => isObj(it) && qid(it.questionId) && (it.chosen === null || isKey(it.chosen)) &&
+        (it.chosenKeys === undefined || isKeyList(it.chosenKeys))))
       return `Lần thi thử thứ ${i + 1} không hợp lệ.`
   }
   const ax = data.activeExam
   if (ax !== null) {
     if (!isObj(ax) || typeof ax.id !== 'string' || !Array.isArray(ax.questionIds) || !ax.questionIds.every(qid) ||
       !isNum(ax.startedAt) || !isNum(ax.endsAt) || !isObj(ax.answers) || !isIntKeyed(ax.answers) ||
-      !Object.values(ax.answers).every(isKey))
+      !Object.values(ax.answers).every((v) => isKey(v) || isKeyList(v)))
       return 'Bài thi đang làm dở (activeExam) không hợp lệ.'
   }
   return null
+}
+
+/** Đưa dữ liệu đã kiểm tra về dạng hiện tại (bài thi dở lưu bởi bản cũ: mỗi câu một chuỗi đáp án). */
+export function normalizeProgress(state: ProgressState): ProgressState {
+  const ax = state.activeExam
+  if (ax) {
+    const raw = ax.answers as Record<number, OptionKey | OptionKey[]>
+    ax.answers = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, typeof v === 'string' ? [v] : v]))
+  }
+  return state
 }

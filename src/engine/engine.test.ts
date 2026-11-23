@@ -319,6 +319,39 @@ describe('taking a mock exam', () => {
     engine.answerExamQuestion(exam.questions[0]!.id, 'a')
     expect(engine.getActiveExam()!.answers).toEqual({})
   })
+  it('lets several boxes be ticked like the real software, but grades the question wrong unless exactly the right one is ticked', () => {
+    const engine = realEngine({ now: fakeClock().now })
+    const exam = engine.startExam()
+    const [q1, q2, q3] = exam.questions
+    const other = (q: typeof q1) => q!.options.find((o) => o.key !== q!.correctAnswer)!.key
+    engine.toggleExamOption(q1!.id, q1!.correctAnswer)
+    engine.toggleExamOption(q2!.id, q2!.correctAnswer)
+    engine.toggleExamOption(q2!.id, other(q2))
+    engine.toggleExamOption(q3!.id, other(q3))
+    engine.toggleExamOption(q3!.id, other(q3))
+    expect(engine.getActiveExam()!.answers[q2!.id]).toHaveLength(2)
+    expect(engine.getActiveExam()!.answers[q3!.id]).toBeUndefined()
+    engine.toggleExamOption(q1!.id, other(q1))
+    engine.clearExamAnswer(q1!.id)
+    engine.toggleExamOption(q1!.id, q1!.correctAnswer)
+    const result = engine.submitExam()
+    expect(result.correctCount).toBe(1)
+    const item2 = result.items.find((i) => i.question.id === q2!.id)!
+    expect(item2).toMatchObject({ chosen: null, correct: false })
+    expect(item2.chosenKeys).toHaveLength(2)
+    expect(engine.examResult(result.id)!.items.find((i) => i.question.id === q2!.id)!.chosenKeys).toHaveLength(2)
+  })
+  it('still opens an exam in progress saved by the old single-answer format', () => {
+    const clock = fakeClock()
+    const storage = createMemoryStorage()
+    const exam = realEngine({ now: clock.now, storage }).startExam()
+    const q = exam.questions[0]!
+    const saved = JSON.parse(storage.get(STORAGE_KEY)!)
+    saved.activeExam.answers = { [q.id]: q.correctAnswer }
+    storage.set(STORAGE_KEY, JSON.stringify(saved))
+    const reopened = realEngine({ now: clock.now, storage })
+    expect(reopened.getActiveExam()!.answers[q.id]).toEqual([q.correctAnswer])
+  })
 })
 
 describe('progress statistics', () => {
